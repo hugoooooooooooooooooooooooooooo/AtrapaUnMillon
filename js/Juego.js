@@ -1,15 +1,3 @@
-var nombre = localStorage.getItem('nombre');
-var dificultad = localStorage.getItem('dificultad');
-
-var nombreTxt = document.getElementById('nombreTxt');
-var dificultadTxt = document.getElementById('dificultadTxt');
-
-nombreTxt.textContent = "Nombre: " + nombre;
-dificultadTxt.textContent = "Dificultad: " + dificultad;
-
-
-
-// Arrays asociativos para preguntas de dificultad fácil
 const dificultadFacil = [
     {
         pregunta: "¿En qué fecha llegó Cristóbal Colón a América?",
@@ -218,3 +206,44 @@ const dificultadDificil = [
         }
     }
 ];
+
+var nombre = localStorage.getItem('nombre');
+var dificultad = localStorage.getItem('dificultad');
+
+window.addEventListener("load", jugar);
+
+function jugar(){
+    rellenarDatos(nombre, dificultad);
+    arrancarContador();
+}
+
+function rellenarDatos(nombre, dificultad){
+    if(!nombre || !dificultad){
+        window.location.href = "../html/inicio.html";
+    } else{
+        var nombreTxt = document.getElementById('nombreTxt');
+        var dificultadTxt = document.getElementById('dificultadTxt');
+    
+        nombreTxt.textContent = "Nombre: " + nombre;
+        dificultadTxt.textContent = "Dificultad: " + dificultad;
+    }
+}
+
+function arrancarContador(){
+    var tiempo = 24;
+    const intervalo = setInterval(() =>{
+        document.getElementById("contador").innerHTML = "<p> " + tiempo + "</p>";
+        tiempo--;
+        if(tiempo < 10){
+            tiempo = "0" + tiempo;
+            if(tiempo == "0-1"){
+                clearInterval(intervalo);
+                alert("!Te has quedado sin tiempo!");
+            }
+        }
+    }, 1000);
+}
+
+
+
+

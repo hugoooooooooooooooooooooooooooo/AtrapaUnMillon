@@ -7,26 +7,58 @@ body{
 #contenido{
     min-height: 100vh;
     display: grid;
-    grid-template-areas: "pregunta pregunta pregunta"
-                         "respuestas respuestas respuestas"
-                         "respuestas respuestas respuestas"
-                         "respuestas respuestas respuestas"
-                         "mesa mesa mesa";
+    grid-template-areas: "info pregunta pregunta pregunta pregunta contador"
+                         "respuestas respuestas respuestas respuestas respuestas respuestas"
+                         "respuestas respuestas respuestas respuestas respuestas respuestas"
+                         "mesa mesa mesa mesa mesa mesa";
+}
+.info{
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    background-color: white;
+    flex-wrap: wrap;
+    margin: 1em;
+    width: 50%;
+    height:70%;
+}
+.info p{
+    padding: 1em;
 }
 #pregunta{
     grid-area: pregunta;
     border: 1px solid black;
-    margin: auto;
     margin-top: 10px;
     padding: 1em;
-    width: 70%;
+    
     height: auto;
     background-color: beige;
-    border-radius: 6%;
+    border-radius: 10px;
 }
 
 #pregunta h3{
     text-align: center;
+}
+
+#contador{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+#contador p{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    border-radius: 50%;
+    color: black;
+    background-color: red;
+    width: 30%;
+    height: 30%;
+    padding: 0.5em;
+    margin-right: 5px;
 }
 
 #pantallaRespuestas{
