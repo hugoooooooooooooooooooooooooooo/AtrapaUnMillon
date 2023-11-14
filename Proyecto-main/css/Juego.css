@@ -1,0 +1,144 @@
+body{
+    margin: 0px;
+    padding: 0px;
+    background-image: url("../img/fondo.jpeg");
+}
+
+#contenido{
+    min-height: 100vh;
+    display: grid;
+    grid-template-areas: "info pregunta pregunta pregunta pregunta contador"
+                         "respuestas respuestas respuestas respuestas respuestas respuestas"
+                         "respuestas respuestas respuestas respuestas respuestas respuestas"
+                         "mesa mesa mesa mesa mesa mesa";
+}
+.info{
+    display: flex;
+    border: 1px solid black;
+    flex-direction: column;
+    background-color: white;
+    flex-wrap: wrap;
+    margin: 1em;
+    width: 50%;
+    height:70%;
+}
+.info p{
+    padding: 1em;
+}
+#pregunta{
+    grid-area: pregunta;
+    border: 1px solid black;
+    margin-top: 10px;
+    padding: 1em;
+    
+    height: auto;
+    background-color: beige;
+    border-radius: 10px;
+}
+
+#pregunta h3{
+    text-align: center;
+}
+
+#contador{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+#contador p{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.5em;
+    border-radius: 50%;
+    color: black;
+    background-color: red;
+    width: 30%;
+    height: 30%;
+    padding: 0.5em;
+    margin-right: 5px;
+}
+
+#pantallaRespuestas{
+    display:flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+#respuestas{
+    grid-area: respuestas;
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+    margin-top: 0px;
+}
+.respuesta{
+    border: 1px solid black;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    padding: 1em;
+    width: 20%;
+}
+
+#respuestas .respuesta{
+    border: none;
+}
+#respuestas .respuesta div{
+    border: 2px solid lightblue;
+    box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
+    background-color: #EEFFFE;
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+    transition-duration: 1s;
+    transition-property: all;
+    transition-timing-function: linear;
+}
+
+#respuestas .respuesta div:hover{
+    border: 2px solid black;
+    box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
+    background-color: rgb(104, 103, 102);
+    border-radius: 10px;
+    width: 300px;
+    height: 200px;
+}
+
+#mesa{
+    grid-area: mesa;
+    background-image: url("../img/mesa.png");
+    width: 90%;
+    border: 1px solid black;
+    padding: 1em;
+    margin: auto;
+    margin-top: 0px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#mesa div{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    padding: 0.5em;
+}
+#mesa div img{
+    width: 50px;
+    height: 50px;
+    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
+    border: 1px solid black;
+}
+
+#mesa div h3{
+    color: white;
+    margin-top: 0px;
+    text-align: center;
+    font-weight: bold
+}
