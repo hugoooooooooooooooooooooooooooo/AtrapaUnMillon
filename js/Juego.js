@@ -209,12 +209,23 @@ const dificultadDificil = [
 
 var nombre = localStorage.getItem('nombre');
 var dificultad = localStorage.getItem('dificultad');
+var tiempo = 10;
+var ronda = 1;
 
 window.addEventListener("load", jugar);
 
 function jugar(){
     rellenarDatos(nombre, dificultad);
     arrancarContador();
+    imprimirPreguntas(dificultad);
+    // let i=3;
+    // const interval = setInterval(() =>{
+    //     i--;
+    //     console.log(i);
+    //     if(i == 0){
+    //         arrancarContador();
+    //     }
+    // }, 1000)
 }
 
 function rellenarDatos(nombre, dificultad){
@@ -229,19 +240,43 @@ function rellenarDatos(nombre, dificultad){
     }
 }
 
+function saltar(){
+    tiempo = 0;
+}
+
 function arrancarContador(){
-    var tiempo = 24;
     const intervalo = setInterval(() =>{
         document.getElementById("contador").innerHTML = "<p> " + tiempo + "</p>";
         tiempo--;
-        if(tiempo < 10){
-            tiempo = "0" + tiempo;
-            if(tiempo == "0-1"){
-                clearInterval(intervalo);
-                alert("!Te has quedado sin tiempo!");
-            }
+        if(tiempo < 0){
+            clearInterval(intervalo);
+            alert("!Te has quedado sin tiempo!");
         }
     }, 1000);
+}
+
+function imprimirPreguntas(dificultad){
+    if(dificultad == "Facil"){
+        imprimirFacil();
+    } else if (dificultad == "Medio"){
+        imprimirMedio();
+    }else{
+        imprimirDificil();
+    }
+}
+
+function imprimirFacil(){
+    var longitud = dificultadFacil.length;
+    var numsPregunta = new Set();
+    do{
+        var random = Math.floor(Math.random() * longitud);
+        numsPregunta.add(random);
+    } while(numsPregunta.has(random));
+    if(ronda <= 5){
+        document.getElementById("pregunta-txt").textContent = dificultadFacil[random].pregunta;
+    }else{
+
+    }
 }
 
 
