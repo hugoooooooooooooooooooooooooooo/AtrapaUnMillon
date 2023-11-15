@@ -1,47 +1,48 @@
+// Mezclar las respuestas para cada nivel de dificultad
 const dificultadFacil = [
     {
         pregunta: "¿En qué fecha llegó Cristóbal Colón a América?",
         respuestas: {
-            a: "12 Octubre 1492 (Respuesta Correcta)",
-            b: "8 de Octubre de 1942",
-            c: "12 de Noviembre de 1513",
-            d: "8 de Octubre 1492"
+            0: "8 de Octubre 1492",
+            1: "12 Octubre 1492. (Respuesta Correcta)",
+            2: "12 de Noviembre de 1513",
+            3: "8 de Octubre de 1942"
         }
     },
     {
         pregunta: "¿De qué colores es la bandera de México?",
         respuestas: {
-            a: "Verde, blanco y rojo. (Respuesta Correcta)",
-            b: "Azul, blanco, verde; Rojo, blanco, Azul;",
-            c: "Rojo, blanco, Azul;",
-            d: "Naranja, Verde, Blanco"
+            0: "Azul, blanco, verde",
+            1: "Rojo, blanco, Azul",
+            2: "Verde, blanco y rojo. (Respuesta Correcta)",
+            3: "Naranja, Verde, Blanco"
         }
     },
     {
         pregunta: "¿Quién escribió Hamlet?",
         respuestas: {
-            a: "William Shakespeare (Respuesta Correcta)",
-            b: "Jane Austen",
-            c: "Charles Dickens",
-            d: "Edgar Allan Poe"
+            0: "Charles Dickens",
+            1: "Jane Austen",
+            2: "William Shakespeare. (Respuesta Correcta)",
+            3: "Edgar Allan Poe"
         }
     },
     {
         pregunta: "¿Quién es el fundador de Facebook?",
         respuestas: {
-            a: "Mark Zuckerberg (Respuesta Correcta)",
-            b: "Steve Jobs",
-            c: "Bill Gates",
-            d: "Elon Musk"
+            0: "Steve Jobs",
+            1: "Elon Musk",
+            2: "Mark Zuckerberg.(Respuesta Correcta)",
+            3: "Bill Gates"
         }
     },
     {
         pregunta: "¿Quién enunció el mito de la caverna?",
         respuestas: {
-            a: "Platón (Respuesta Correcta)",
-            b: "Aristóteles",
-            c: "Sócrates",
-            d: "Confucio"
+            0: "Confucio",
+            1: "Sócrates",
+            2: "Platón. (Respuesta Correcta)",
+            3: "Aristóteles"
         }
     }
 ];
@@ -51,46 +52,46 @@ const dificultadMedia = [
     {
         pregunta: "¿Cuál es la flor nacional de Japón?",
         respuestas: {
-            a: "El cerezo. (Respuesta Correcta)",
-            b: "Lirio",
-            c: "Orquídea",
-            d: "Tulipán"
+            0: "Orquídea",
+            1: "Lirio",
+            2: "El cerezo. (Respuesta Correcta)",
+            3: "Tulipán"
         }
     },
     {
         pregunta: "¿Cuántos años duró la Primera Guerra Mundial?",
         respuestas: {
-            a: "4 años. (Respuesta Correcta)",
-            b: "6 años",
-            c: "8 años",
-            d: "10 años"
+            0: "10 años",
+            1: "8 años",
+            2: "6 años",
+            3: "4 años. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿En qué año comenzó la II Guerra Mundial?",
         respuestas: {
-            a: "En 1939. (Respuesta Correcta)",
-            b: "1940",
-            c: "1935",
-            d: "1945"
+            0: "1940",
+            1: "1945",
+            2: "1935",
+            3: "En 1939. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿Quién escribió La Odisea?",
         respuestas: {
-            a: "Homero (Respuesta Correcta)",
-            b: "Virgilio",
-            c: "Ovidio",
-            d: "Esquilo"
+            0: "Esquilo",
+            1: "Virgilio",
+            2: "Homero. (Respuesta Correcta)",
+            3: "Ovidio"
         }
     },
     {
         pregunta: "¿Cuál fue el primer metal que usó el hombre?",
         respuestas: {
-            a: "El cobre. (Respuesta Correcta)",
-            b: "Hierro",
-            c: "Plata",
-            d: "Piedra"
+            0: "Plata",
+            1: "Piedra",
+            2: "El cobre. (Respuesta Correcta)",
+            3: "Hierro"
         }
     }
 ];
@@ -100,124 +101,128 @@ const dificultadDificil = [
     {
         pregunta: "¿Qué río atraviesa la ciudad de Benarés?",
         respuestas: {
-            a: "El Río Ganges. (Respuesta Correcta)",
-            b: "El Río Nilo",
-            c: "El Río Amazonas",
-            d: "El Río Yangtsé"
+            0: "El Río Nilo",
+            1: "El Río Yangtsé",
+            2: "El Río Amazonas",
+            3: "El Río Ganges. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿En qué año cayó el muro de Berlín?",
         respuestas: {
-            a: "En 1989. (Respuesta Correcta)",
-            b: "En 1991",
-            c: "En 1985",
-            d: "En 1979"
+            0: "En 1991",
+            1: "En 1979",
+            2: "En 1985",
+            3: "En 1989. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿Quién descubrió la penicilina?",
         respuestas: {
-            a: "Alexander Fleming. (Respuesta Correcta)",
-            b: "Louis Pasteur",
-            c: "Marie Curie",
-            d: "Robert Koch"
+            0: "Marie Curie",
+            1: "Robert Koch",
+            2: "Louis Pasteur",
+            3: "Alexander Fleming. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿Cuánto duró la guerra de los 100 años?",
         respuestas: {
-            a: "116 años. (Respuesta Correcta)",
-            b: "100 años",
-            c: "97 años",
-            d: "99 años"
+            0: "99 años",
+            1: "97 años",
+            2: "116 años. (Respuesta Correcta)",
+            3: "100 años"
         }
     },
     {
         pregunta: "¿Con qué nombre se conoce el escándalo que obligó al presidente estadounidense Richard Nixon a dimitir?",
         respuestas: {
-            a: "Watergate. (Respuesta Correcta)",
-            b: "El crack del 29",
-            c: "La catástrofe",
-            d: "Disaster of Nixon"
+            0: "Disaster of Nixon",
+            1: "La catástrofe",
+            2: "El crack del 29",
+            3: "Watergate. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿Cómo se llama el cuadro más famoso de Gustav Klimt?",
         respuestas: {
-            a: "El beso (Respuesta Correcta)",
-            b: "La Dama Dorada",
-            c: "El Árbol de la Vida",
-            d: "Retrato de Adele Bloch-Bauer (Respuesta Falsa)"
+            0: "La Dama Dorada",
+            1: "El Árbol de la Vida",
+            2: "Retrato de Adele Bloch-Bauer",
+            3: "El beso. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿Cuál es el récord mundial de Usain Bolt en 100 metros lisos?",
         respuestas: {
-            a: "9,58 segundos (Respuesta Correcta)",
-            b: "9,75 segundos",
-            c: "9,45 segundos",
-            d: "9,95 segundos"
+            0: "9,75 segundos",
+            1: "9,45 segundos",
+            2: "9,95 segundos",
+            3: "9,58 segundos. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿CUÁL ES LA CAPITAL DE NICARAGUA?",
         respuestas: {
-            a: "Managua (Respuesta Correcta)",
-            b: "Nicaragua",
-            c: "San Salvador",
-            d: "Tegucigalpa"
+            0: "Nicaragua",
+            1: "Tegucigalpa",
+            2: "San Salvador",
+            3: "Managua. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿DÓNDE NACIÓ VICENT VAN GOGH?",
         respuestas: {
-            a: "Zundert (Respuesta Correcta)",
-            b: "Utrecht",
-            c: "Groninga",
-            d: "Ámsterdam"
+            0: "Utrecht",
+            1: "Groninga",
+            2: "Ámsterdam",
+            3: "Zundert. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿CUÁNDO COMENZÓ LA EDAD CONTEMPORÁNEA?",
         respuestas: {
-            a: "En 1789 (Respuesta Correcta)",
-            b: "En 1800",
-            c: "En 1750",
-            d: "En 1825"
+            0: "En 1800",
+            1: "En 1750",
+            2: "En 1825",
+            3: "En 1789. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿QUÉ TERRITORIO SE INDEPENDIZÓ DE SERBIA EN 2008 SIN QUE SE HAYA AÚN RECONOCIDO DICHA INDEPENDENCIA POR LA TOTALIDAD DE PAÍSES?",
         respuestas: {
-            a: "Kosovo (Respuesta Correcta)",
-            b: "Montenegro",
-            c: "Bosnia y Herzegovina",
-            d: "Macedonia del Norte"
+            0: "Montenegro",
+            1: "Bosnia y Herzegovina",
+            2: "Macedonia del Norte",
+            3: "Kosovo. (Respuesta Correcta)"
         }
     },
     {
         pregunta: "¿EN QUÉ AÑO COMENZÓ EL SEGUNDO REICH EN ALEMANIA?",
         respuestas: {
-            a: "En 1871 (Respuesta Correcta)",
-            b: "En 1900",
-            c: "En 1850",
-            d: "En 1920"
+            0: "En 1900",
+            1: "En 1850",
+            2: "En 1920",
+            3: "En 1871. (Respuesta Correcta)"
         }
     }
 ];
 
 var nombre = localStorage.getItem('nombre');
 var dificultad = localStorage.getItem('dificultad');
-var tiempo = 10;
+var tiempo = 89;
 var ronda = 1;
+presupuesto = "200k";
 
 window.addEventListener("load", jugar);
 
 function jugar(){
-    rellenarDatos(nombre, dificultad);
-    arrancarContador();
-    imprimirPreguntas(dificultad);
+    do{
+        rellenarDatos(nombre, dificultad);
+        arrancarContador();
+        imprimirPreguntas(dificultad);
+        ronda++;
+    }while(ronda <= 8 || presupuesto == 0);
     // let i=3;
     // const interval = setInterval(() =>{
     //     i--;
@@ -232,11 +237,16 @@ function rellenarDatos(nombre, dificultad){
     if(!nombre || !dificultad){
         window.location.href = "../html/inicio.html";
     } else{
-        var nombreTxt = document.getElementById('nombreTxt');
-        var dificultadTxt = document.getElementById('dificultadTxt');
-    
+        var info = document.getElementById("info");
+        var nombreTxt = document.createElement("p");
+        var dificultadTxt = document.createElement("p");
+        var dineroTxt = document.createElement("p");
         nombreTxt.textContent = "Nombre: " + nombre;
         dificultadTxt.textContent = "Dificultad: " + dificultad;
+        dineroTxt.textContent = "Dinero: " + presupuesto;
+        info.appendChild(nombreTxt);
+        info.appendChild(dificultadTxt);
+        info.appendChild(dineroTxt);
     }
 }
 
@@ -257,25 +267,50 @@ function arrancarContador(){
 
 function imprimirPreguntas(dificultad){
     if(dificultad == "Facil"){
-        imprimirFacil();
-    } else if (dificultad == "Medio"){
-        imprimirMedio();
-    }else{
-        imprimirDificil();
+        if(ronda <= 5){
+            imprimir("Facil");
+        }else{
+            imprimir("Media");
+        }
+    } else if (dificultad== "Media"){
+        if(ronda <= 3){
+            imprimir("Facil");
+        }else if (ronda <= 6){
+            imprimir("Media");
+        } else{
+            imprimir("Dificil");
+        }
+    } else{
+        if(ronda <= 1){
+            imprimir("Facil");
+        }else if (ronda <= 4){
+            imprimir("Media");
+        } else{
+            imprimir("Dificil");
+        }
     }
 }
 
-function imprimirFacil(){
-    var longitud = dificultadFacil.length;
+function imprimir(dificultad){
+    var arrayDificultad;
+    if(dificultad == "Facil"){
+        arrayDificultad = dificultadFacil;
+    } else if (dificultad == "Media"){
+        arrayDificultad = dificultadMedia;
+    } else{
+        arrayDificultad = dificultadDificil;
+    }
+    var longitud = arrayDificultad.length;
     var numsPregunta = new Set();
     do{
         var random = Math.floor(Math.random() * longitud);
-        numsPregunta.add(random);
     } while(numsPregunta.has(random));
-    if(ronda <= 5){
-        document.getElementById("pregunta-txt").textContent = dificultadFacil[random].pregunta;
-    }else{
-
+    numsPregunta.add(random);
+    document.getElementById("pregunta-txt").textContent = arrayDificultad[random].pregunta;
+    var respuestas = document.getElementsByClassName("respuesta");
+    for(i = 0; i < respuestas.length; i++){
+        respuesta = arrayDificultad[random].respuestas[i].split(".");
+        document.getElementById("respuesta" + (i+1)).textContent = respuesta[0];
     }
 }
 

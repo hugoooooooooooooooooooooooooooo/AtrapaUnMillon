@@ -1,7 +1,6 @@
 body{
     margin: 0px;
     padding: 0px;
-    background-image: url("../img/fondo.jpeg");
 }
 
 #contenido{
@@ -12,18 +11,19 @@ body{
                          "respuestas respuestas respuestas respuestas respuestas respuestas"
                          "mesa mesa mesa mesa mesa mesa";
 }
-.info{
+#info{
     display: flex;
     border: 1px solid black;
     flex-direction: column;
     background-color: white;
     flex-wrap: wrap;
     margin: 1em;
-    width: 50%;
-    height:70%;
+    width: 150px;
+    height:200px;
 }
-.info p{
-    padding: 1em;
+#info p{
+    padding: 0.5em;
+    margin: 0.5em;
 }
 #pregunta{
     grid-area: pregunta;
@@ -122,8 +122,9 @@ body{
 
 #mesa{
     grid-area: mesa;
-    background-image: url("../img/mesa.png");
     width: 90%;
+    background-image: url("../img/mesa.jpg");
+    background-size: cover;
     border: 1px solid black;
     padding: 1em;
     margin: auto;
