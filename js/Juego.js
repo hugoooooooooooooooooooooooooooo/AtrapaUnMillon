@@ -207,29 +207,20 @@ const dificultadDificil = [
         }
     }
 ];
-
+// guardamos y leemos los localStorages
 var nombre = localStorage.getItem('nombre');
 var dificultad = localStorage.getItem('dificultad');
-var tiempo = 89;
+rellenarDatos(nombre, dificultad);
+
+// establecemos los valores iniciales del cronómetro, la ronda y el presupuesto
+var tiempo = 90;
 var ronda = 1;
-presupuesto = "200k";
+var presupuesto = 200;
+
+//establecemos un delay para controlar los tiempos de ejecución
+var delay = 1000;
 
 window.addEventListener("load", jugar);
-
-function jugar(){
-    rellenarDatos(nombre, dificultad);
-        arrancarContador();
-        imprimirPreguntas(dificultad);
-        ronda++;
-    // let i=3;
-    // const interval = setInterval(() =>{
-    //     i--;
-    //     console.log(i);
-    //     if(i == 0){
-    //         arrancarContador();
-    //     }
-    // }, 1000)
-}
 
 function rellenarDatos(nombre, dificultad){
     if(!nombre || !dificultad){
@@ -241,65 +232,65 @@ function rellenarDatos(nombre, dificultad){
         var dineroTxt = document.createElement("p");
         nombreTxt.textContent = "Nombre: " + nombre;
         dificultadTxt.textContent = "Dificultad: " + dificultad;
-        dineroTxt.textContent = "Dinero: " + presupuesto;
         info.appendChild(nombreTxt);
         info.appendChild(dificultadTxt);
-        info.appendChild(dineroTxt);
     }
 }
-
+// función que controla el flujo de juego
+function jugar(){
+    actualizarDinero();
+    imprimirPreguntas(dificultad);
+    crearContador();
+    arrancarContador();
+}
+// actualizamos el presupuesto
+function actualizarDinero(){
+    document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k"
+}
+// asignamos el valor del tiempo al contador (también nos servirá para actualizarlo)
+function crearContador(){
+    document.getElementById("contador").textContent = tiempo;
+}
+// saltamos el tiempo
 function saltar(){
-    tiempo = 0;
+    tiempo = -1;
+    document.getElementById("contador").textContent = 0;
 }
-
-function arrancarContador(){
-    const intervalo = setInterval(() =>{
-        document.getElementById("contador").innerHTML = "<p> " + tiempo + "</p>";
-        tiempo--;
-        if(tiempo < 0){
-            clearInterval(intervalo);
-            alert("!Te has quedado sin tiempo!");
-        }
-    }, 1000);
-}
-
+//función general que inicia el juego dependiendo de su dificultad, que imprime las preguntas en función de la ronda en la que estemos.
+//Esta función llama a imprimir
 function imprimirPreguntas(dificultad){
     if(dificultad == "Facil"){
         if(ronda <= 5){
-            imprimir("Facil");
+            imprimir(dificultadFacil);
         }else{
-            imprimir("Media");
+            imprimir(dificultadMedia);
         }
     } else if (dificultad== "Media"){
         if(ronda <= 3){
-            imprimir("Facil");
+            imprimir(dificultadFacil);
         }else if (ronda <= 6){
-            imprimir("Media");
+            imprimir(dificultadMedia);
         } else{
-            imprimir("Dificil");
+            imprimir(dificultadDificil);
         }
     } else{
         if(ronda <= 1){
-            imprimir("Facil");
+            imprimir(dificultadFacil);
         }else if (ronda <= 4){
-            imprimir("Media");
+            imprimir(dificultadMedia);
         } else{
-            imprimir("Dificil");
+            imprimir(dificultadDificil);
         }
     }
 }
 
-function imprimir(dificultad){
-    var arrayDificultad;
-    if(dificultad == "Facil"){
-        arrayDificultad = dificultadFacil;
-    } else if (dificultad == "Media"){
-        arrayDificultad = dificultadMedia;
-    } else{
-        arrayDificultad = dificultadDificil;
-    }
+//creamos un Set para controlar que no se repitan las preguntas
+var numsPregunta = new Set();
+
+// imprimimos las preguntas en función de su dificultad
+//esta función ess llamada en imprimirPreguntas
+function imprimir(arrayDificultad){
     var longitud = arrayDificultad.length;
-    var numsPregunta = new Set();
     do{
         var random = Math.floor(Math.random() * longitud);
     } while(numsPregunta.has(random));
@@ -309,9 +300,60 @@ function imprimir(dificultad){
     for(i = 0; i < respuestas.length; i++){
         var respuesta = arrayDificultad[random].respuestas[i];
         respuesta = respuesta.split(".");
-        document.getElementById("respuesta" + (i+1)).textContent = respuesta[0];
+        var txtRespuesta = document.getElementById("respuesta" + (i+1));
+        txtRespuesta.textContent = respuesta[0];
+        animar(txtRespuesta);
+    }
+    animar(document.getElementById("pregunta-txt"));
+}
+//animación que hace que se desvelen las preguntas y las respuestas una a una
+function animar(texto) {
+    setTimeout(function () {
+      texto.animate([
+        { opacity: 0 },
+        { opacity: 1 }
+      ], { duration: 1000, fill: "both" });
+    }, delay);
+    delay += 1000;
+  }
+// arrancamos el contador hacia atrás hasta 0
+function arrancarContador(){
+    setTimeout(function(){
+        const intervalo = setInterval(() =>{
+            document.getElementById("contador").textContent = tiempo;
+            tiempo--;
+            if(tiempo < -1){
+                alert("!Te has quedado sin tiempo!");
+                clearInterval(intervalo);
+                comprobarRespuesta();
+            }
+        }, 1000);
+    }, delay);
+}
+// comprobamos las respuestas, quitando el dinero de aquellas que sean incorrectas
+function comprobarRespuesta(){
+    //código de comprobación con animaciones de trampilla
+    update();
+}
+// cambiamos de ronda, actualizamos el juego
+function update(){
+    if(ronda <= 8 || presupuesto > 0){
+        ronda++;
+        reset();
+        crearContador();
+        jugar();
+    }else{
+        gameOver();
     }
 }
+// reseteamos el valor de todas las variables
+function reset(){
+    tiempo = 90;
+    delay = 1000;
+}
+
+
+
 
 
 
