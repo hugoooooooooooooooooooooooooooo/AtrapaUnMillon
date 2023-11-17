@@ -162,7 +162,7 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿CUÁL ES LA CAPITAL DE NICARAGUA?",
+        pregunta: "¿Cúal es la capital de Nicaragua?",
         respuestas: {
             0: "Nicaragua.",
             1: "Tegucigalpa.",
@@ -171,7 +171,7 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿DÓNDE NACIÓ VICENT VAN GOGH?",
+        pregunta: "¿Dónde nació Vicent Van Gogh?",
         respuestas: {
             0: "Utrecht.",
             1: "Groninga.",
@@ -180,7 +180,7 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿CUÁNDO COMENZÓ LA EDAD CONTEMPORÁNEA?",
+        pregunta: "¿Cuándo comenzó la edad contemporánea?",
         respuestas: {
             0: "En 1800.",
             1: "En 1750.",
@@ -189,7 +189,7 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿QUÉ TERRITORIO SE INDEPENDIZÓ DE SERBIA EN 2008 SIN QUE SE HAYA AÚN RECONOCIDO DICHA INDEPENDENCIA POR LA TOTALIDAD DE PAÍSES?",
+        pregunta: "¿Qué territorio se independizó de serbia en 2008 sin que se haya aún reconocido dicha independencia por la totalidad de países?",
         respuestas: {
             0: "Montenegro.",
             1: "Bosnia y Herzegovina.",
@@ -198,7 +198,7 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿EN QUÉ AÑO COMENZÓ EL SEGUNDO REICH EN ALEMANIA?",
+        pregunta: "¿En qué año comenzó el segundo reich en Alemania?",
         respuestas: {
             0: "En 1900.",
             1: "En 1850.",
