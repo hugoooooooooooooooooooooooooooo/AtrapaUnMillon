@@ -220,6 +220,9 @@ var presupuesto = 200;
 //establecemos un delay para controlar los tiempos de ejecución
 var delay = 1000;
 
+// establecemos un array que guarda las respuestas con las que estamos trabajando en cada ronda
+var arrayRespuestas = [];
+
 window.addEventListener("load", jugar);
 
 function rellenarDatos(nombre, dificultad){
@@ -296,16 +299,22 @@ function imprimir(arrayDificultad){
     } while(numsPregunta.has(random));
     numsPregunta.add(random);
     document.getElementById("pregunta-txt").textContent = arrayDificultad[random].pregunta;
-    var respuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
-    for(i = 0; i < respuestas.length; i++){
+    var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
+    for(i = 0; i < divRespuestas.length; i++){
         var respuesta = arrayDificultad[random].respuestas[i];
         respuesta = respuesta.split(".");
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
         txtRespuesta.textContent = respuesta[0];
         animar(txtRespuesta);
+        guardar(respuesta, arrayRespuestas);
     }
     animar(document.getElementById("pregunta-txt"));
 }
+
+function guardar(elemento, array){
+    array.push(elemento);
+}
+
 //animación que hace que se desvelen las preguntas y las respuestas una a una
 function animar(texto) {
     setTimeout(function () {
@@ -316,6 +325,10 @@ function animar(texto) {
     }, delay);
     delay += 1000;
   }
+
+function eliminar(elemento){
+    elemento.remove();
+}
 // arrancamos el contador hacia atrás hasta 0
 function arrancarContador(){
     setTimeout(function(){
@@ -332,12 +345,26 @@ function arrancarContador(){
 }
 // comprobamos las respuestas, quitando el dinero de aquellas que sean incorrectas
 function comprobarRespuesta(){
-    //código de comprobación con animaciones de trampilla
+    for(i = 0; i < arrayRespuestas.length; i++){
+        var comprobacion = arrayRespuestas[i][1].toLowerCase();
+        if(!comprobacion.includes("correcta")){
+            animacionTrampilla(i);
+        }
+    }
     update();
 }
+
+function animacionTrampilla(trampilla){
+    var caja = document.getElementById("mesaRespuesta" + (trampilla + 1));
+    var animaTrampilla = caja.animate([
+        {backgroundColor: "#EEFFFE"},
+        {backgroundColor: "rgb(104, 103, 102)"}
+    ], {duration: 2000, fill:"both"});
+}
+
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= 8 || presupuesto > 0){
+    if(ronda < 8 && presupuesto > 0){
         ronda++;
         reset();
         crearContador();
@@ -350,6 +377,10 @@ function update(){
 function reset(){
     tiempo = 90;
     delay = 1000;
+}
+
+function gameOver(){
+    window.location.href = "../html/inicio.html";
 }
 
 
