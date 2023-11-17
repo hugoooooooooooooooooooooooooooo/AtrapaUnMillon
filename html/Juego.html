@@ -10,6 +10,7 @@
 <body>
     <div id="contenido">
         <div id="info">
+            <p id="dinero"></p>
         </div>
         <div id="pregunta">
             <h3 id="pregunta-txt">Pregunta</h3>
@@ -27,45 +28,39 @@
                     <p id="respuesta3"> Respuesta 3 </p>
                 </div>
                 <div class="respuesta">
-                    <h4> C </h4>
+                    <h4> D </h4>
                     <p id="respuesta4"> Respuesta 3 </p>
                 </div>
             </div>
         </div>
         <div id="caja-contador">
-            <p id="contador"> 90 </p>
+            <p id="contador"></p>
             <button onclick="saltar()"> Skip </button>
         </div>
         <div id="respuestas">
-            <div class="respuesta" id="mesaRespuesta1"> 
+            <div class="respuesta"> 
                 <h4>A</h4>
-                <div></div>
+                <div id="trampilla1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
-            <div class="respuesta" id="mesaRespuesta2">
+            <div class="respuesta">
                 <h4>B</h4>
-                <div></div>
+                <div id="trampilla2" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
-            <div class="respuesta" id="mesaRespuesta3">
+            <div class="respuesta">
                 <h4>C</h4>
-                <div></div>
+                <div id="trampilla3" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
-            <div class="respuesta" id="mesaRespuesta4">
+            <div class="respuesta">
                 <h4>D</h4>
-                <div></div>
+                <div id="trampilla4" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
             </div>
         </div>
         <div id="mesa">
-            <div id="1k">
-                <h3>1k</h3>
-                <img src="../img/billete.jpeg">
-            </div>
             <div id="5k">
-                <h3>5k</h3>
-                <img src="../img/billete.jpeg">
+                <img src="../img/billete.png" alt="billete" id="billete5" draggable="true" ondragstart="drag(event)">
             </div>
-            <div id="10k">
-                <h3>10k</h3>
-                <img src="../img/billete.jpeg">
+            <div id="all in">
+                <img src="../img/billeti.png" alt="billete" id="billeteAll" draggable="true" ondragstart="drag(event)">
             </div>
         </div>
     </div>

@@ -1,6 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
+    background-color: lightcyan;
 }
 
 #contenido{
@@ -20,6 +21,9 @@ body{
     margin: 1em;
     width: 150px;
     height:200px;
+    border-radius: 10%;
+    border: 1px solid rgb(39, 45, 214);
+    box-shadow: 0 0 30px rgba(30, 21, 206, 0.5);
 }
 #info p{
     padding: 0.5em;
@@ -30,10 +34,8 @@ body{
     border: 1px solid black;
     margin-top: 10px;
     padding: 1em;
-    margin-left: 50px;
     height: auto;
-    width: 950px;
-    background-color: beige;
+    background: linear-gradient(to bottom, #2A84F0, #9CC9FD);
     border-radius: 10px;
 }
 
@@ -57,8 +59,8 @@ body{
     align-items: center;
     font-size: 1.5em;
     border-radius: 50%;
-    color: black;
-    background-color: red;
+    color: white;
+    background-color: darkblue;
     width: 40%;
     height: 30%;
     padding: 0.5em;
@@ -80,6 +82,13 @@ body{
     justify-content: space-between;
     flex-wrap: wrap;
 }
+
+#pantallaRespuestas .respuesta{
+    background-color: darkblue;
+    color: white;
+    border-radius: 8%;
+}
+
 #respuestas{
     grid-area: respuestas;
     display: flex;
@@ -99,6 +108,10 @@ body{
     width: 20%;
 }
 
+.respuesta p, #pregunta-txt{
+    opacity: 0;
+}
+
 #respuestas .respuesta{
     border: none;
 }
@@ -114,24 +127,23 @@ body{
     transition-timing-function: linear;
 }
 
-#respuestas .respuesta div:hover{
+/* #respuestas .respuesta div:hover{
     border: 2px solid black;
     box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
     background-color: rgb(104, 103, 102);
     border-radius: 10px;
     width: 300px;
     height: 200px;
-}
+} */
 
 #mesa{
     grid-area: mesa;
     width: 90%;
-    background-image: url("../img/mesa.jpg");
+    background-image: url("../img/mesa.png");
     background-size: cover;
     border: 1px solid black;
     padding: 1em;
-    margin: auto;
-    margin-top: 0px;
+    margin: 10px auto;
     display: flex;
     flex-direction: row;
     justify-content: space-around;
@@ -139,20 +151,19 @@ body{
 
 #mesa div{
     display: flex;
-    flex-wrap: wrap;
     flex-direction: column;
     padding: 0.5em;
+    justify-content: center;
+    align-items: center;
 }
-#mesa div img{
-    width: 50px;
-    height: 50px;
-    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
-    border: 1px solid black;
+img{
+    width: 60px;
+    height: 100px;
+    margin: 5px;
 }
 
 #mesa div h3{
     color: white;
     margin-top: 0px;
-    text-align: center;
     font-weight: bold
 }
