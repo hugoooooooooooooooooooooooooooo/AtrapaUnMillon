@@ -21,9 +21,9 @@ const dificultadFacil = [
     {
         pregunta: "¿Quién escribió Hamlet?",
         respuestas: {
-            0: "Charles Dickens.",
+            0: "William Shakespeare. (Respuesta Correcta)",
             1: "Jane Austen.",
-            2: "William Shakespeare. (Respuesta Correcta)",
+            2: "Charles Dickens.",
             3: "Edgar Allan Poe."
         }
     },
@@ -52,9 +52,9 @@ const dificultadMedia = [
     {
         pregunta: "¿Cuál es la flor nacional de Japón?",
         respuestas: {
-            0: "Orquídea.",
+            0: "El cerezo. (Respuesta Correcta)",
             1: "Lirio.",
-            2: "El cerezo. (Respuesta Correcta)",
+            2: "Orquídea.",
             3: "Tulipán."
         }
     },
@@ -71,9 +71,9 @@ const dificultadMedia = [
         pregunta: "¿En qué año comenzó la II Guerra Mundial?",
         respuestas: {
             0: "1940.",
-            1: "1945.",
+            1: "En 1939. (Respuesta Correcta)",
             2: "1935.",
-            3: "En 1939. (Respuesta Correcta)"
+            3: "1945"
         }
     },
     {
@@ -110,10 +110,10 @@ const dificultadDificil = [
     {
         pregunta: "¿En qué año cayó el muro de Berlín?",
         respuestas: {
-            0: "En 1991.",
+            0: "En 1989. (Respuesta Correcta)",
             1: "En 1979.",
             2: "En 1985.",
-            3: "En 1989. (Respuesta Correcta)"
+            3: "En 1991"
         }
     },
     {
@@ -146,19 +146,19 @@ const dificultadDificil = [
     {
         pregunta: "¿Cómo se llama el cuadro más famoso de Gustav Klimt?",
         respuestas: {
-            0: "La Dama Dorada.",
+            0: "El beso. (Respuesta Correcta)",
             1: "El Árbol de la Vida.",
             2: "Retrato de Adele Bloch-Bauer.",
-            3: "El beso. (Respuesta Correcta)"
+            3: "La Dama Dorada"
         }
     },
     {
         pregunta: "¿Cuál es el récord mundial de Usain Bolt en 100 metros lisos?",
         respuestas: {
             0: "9,75 segundos.",
-            1: "9,45 segundos.",
+            1: "9,58 segundos. (Respuesta Correcta)",   
             2: "9,95 segundos.",
-            3: "9,58 segundos. (Respuesta Correcta)"
+            3: "9,45 segundos.",
         }
     },
     {
@@ -173,10 +173,10 @@ const dificultadDificil = [
     {
         pregunta: "¿Dónde nació Vicent Van Gogh?",
         respuestas: {
-            0: "Utrecht.",
+            0: "Zundert. (Respuesta Correcta)",
             1: "Groninga.",
             2: "Ámsterdam.",
-            3: "Zundert. (Respuesta Correcta)"
+            3: "Utrecht."
         }
     },
     {
@@ -192,9 +192,9 @@ const dificultadDificil = [
         pregunta: "¿Qué territorio se independizó de serbia en 2008 sin que se haya aún reconocido dicha independencia por la totalidad de países?",
         respuestas: {
             0: "Montenegro.",
-            1: "Bosnia y Herzegovina.",
+            1: "Kosovo. (Respuesta Correcta)",
             2: "Macedonia del Norte.",
-            3: "Kosovo. (Respuesta Correcta)"
+            3: "Bosnia y Herzegovina."
         }
     },
     {
