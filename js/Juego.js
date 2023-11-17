@@ -241,7 +241,7 @@ var arrayRespuestas = [];
 
 //hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
 function inicializarVariables(){
-    tiempo = 90;
+    tiempo = 60;
     delay = 1000;
     delayTrampilla = 1000;
     arrayRespuestas = new Array();
@@ -283,8 +283,7 @@ function allowDrop(ev) {
         ev.target.appendChild(document.getElementById(data));
         presupuesto = 0;
         actualizarDinero();
-        document.getElementById("billete5").style.display = "none";
-        document.getElementById("duplicadoBillete").style.display = "none";
+        eliminarDineros("all");
     }else{
         if(presupuesto > 5){
             var billeteDuplicado = document.getElementById(data).cloneNode(true);
@@ -298,10 +297,20 @@ function allowDrop(ev) {
                 ev.target.appendChild(document.getElementById(data));
                 presupuesto-=5;
                 actualizarDinero();
-                document.getElementById("billeteAll").style.display = "none";
+                eliminarDineros("5");
             }
     }
   }
+
+ function eliminarDineros(txt){
+    if(txt == "all"){
+        document.getElementById("billete5").style.display = "none";
+        document.getElementById("duplicadoBillete").style.display = "none";
+    }else{
+        document.getElementById("billeteAll").style.display = "none";
+    }
+  }
+
 // actualizamos el presupuesto
 function actualizarDinero(){
     document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k"
