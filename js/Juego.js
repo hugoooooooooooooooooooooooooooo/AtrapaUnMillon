@@ -217,11 +217,19 @@ var tiempo = 90;
 var ronda = 1;
 var presupuesto = 200;
 
-//establecemos un delay para controlar los tiempos de ejecución
+//establecemos un delay para controlar los tiempos de ejecución, y un delay
 var delay = 1000;
+var delayTrampilla = 1000;
 
 // establecemos un array que guarda las respuestas con las que estamos trabajando en cada ronda
-var arrayRespuestas = [];
+var arrayRespuestas = new Array();
+
+//creamos un Set para controlar que no se repitan las preguntas
+var numsPregunta = new Set();
+
+//creamos variables para las animaciones, para luego revertirlas
+var animacionPregunta;
+var animacionTrampilla;
 
 window.addEventListener("load", jugar);
 
@@ -256,8 +264,8 @@ function crearContador(){
 }
 // saltamos el tiempo
 function saltar(){
-    tiempo = -1;
-    document.getElementById("contador").textContent = 0;
+    tiempo = 0;
+    crearContador();
 }
 //función general que inicia el juego dependiendo de su dificultad, que imprime las preguntas en función de la ronda en la que estemos.
 //Esta función llama a imprimir
@@ -287,9 +295,6 @@ function imprimirPreguntas(dificultad){
     }
 }
 
-//creamos un Set para controlar que no se repitan las preguntas
-var numsPregunta = new Set();
-
 // imprimimos las preguntas en función de su dificultad
 //esta función ess llamada en imprimirPreguntas
 function imprimir(arrayDificultad){
@@ -318,7 +323,7 @@ function guardar(elemento, array){
 //animación que hace que se desvelen las preguntas y las respuestas una a una
 function animar(texto) {
     setTimeout(function () {
-      texto.animate([
+        texto.animate([
         { opacity: 0 },
         { opacity: 1 }
       ], { duration: 1000, fill: "both" });
@@ -335,8 +340,8 @@ function arrancarContador(){
         const intervalo = setInterval(() =>{
             document.getElementById("contador").textContent = tiempo;
             tiempo--;
-            if(tiempo < -1){
-                alert("!Te has quedado sin tiempo!");
+            if(tiempo < 0){
+                // alert("!Te has quedado sin tiempo!");
                 clearInterval(intervalo);
                 comprobarRespuesta();
             }
@@ -345,30 +350,45 @@ function arrancarContador(){
 }
 // comprobamos las respuestas, quitando el dinero de aquellas que sean incorrectas
 function comprobarRespuesta(){
-    for(i = 0; i < arrayRespuestas.length; i++){
-        var comprobacion = arrayRespuestas[i][1].toLowerCase();
-        if(!comprobacion.includes("correcta")){
-            animacionTrampilla(i);
-        }
-    }
+    var respuestasIncorrectas = getRespuestasIncorrectas();
+    animarTrampilla(respuestasIncorrectas);
     update();
 }
 
-function animacionTrampilla(trampilla){
-    var caja = document.getElementById("mesaRespuesta" + (trampilla + 1));
-    var animaTrampilla = caja.animate([
+
+function getRespuestasIncorrectas(){
+    var salida = new Array();
+    for(i = 0; i < arrayRespuestas.length; i++){
+        var comprobacion = arrayRespuestas[i][1].toLowerCase();
+        if(!comprobacion.includes("correcta")){
+            salida.push(i);
+        }
+    }
+    return salida;
+}
+
+//función para animar las trampillas
+function animarTrampilla(trampillas){
+    for(i = 0; i < trampillas.length; i++){
+        var caja = document.getElementById("trampilla" + (trampillas[i] + 1));
+        animacionTrampilla = caja.animate([
         {backgroundColor: "#EEFFFE"},
         {backgroundColor: "rgb(104, 103, 102)"}
-    ], {duration: 2000, fill:"both"});
+    ], {duration: 1000, fill:"both", delay: delayTrampilla});
+    delayTrampilla += 2000;
+    }
 }
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
     if(ronda < 8 && presupuesto > 0){
-        ronda++;
-        reset();
-        crearContador();
-        jugar();
+        setTimeout(function(){
+            ronda++;
+            reset();
+            crearContador();
+            jugar();
+        }, (delayTrampilla + 3000));
+        console.log(delayTrampilla + delay);
     }else{
         gameOver();
     }
@@ -377,6 +397,21 @@ function update(){
 function reset(){
     tiempo = 90;
     delay = 1000;
+    delayTrampilla = 1000;
+    resetAnimaciones();
+    arrayRespuestas = new Array();
+}
+
+//reseteamos las animaciones
+function resetAnimaciones(){
+    var respuestasIncorrectas = getRespuestasIncorrectas();
+    for(i = 0; i < respuestasIncorrectas.length; i++){
+        var caja = document.getElementById("trampilla" + (respuestasIncorrectas[i] + 1));
+        caja.animate([
+            {backgroundColor: "#EEFFFE"},
+            {backgroundColor: "rgb(104, 103, 102)"}
+        ], {duration: 1000, fill:"both", delay: delayTrampilla, direction: "reverse"});
+    }
 }
 
 function gameOver(){
