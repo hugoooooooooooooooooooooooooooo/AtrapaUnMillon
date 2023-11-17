@@ -266,7 +266,7 @@ function jugar(){
     crearContador();
     arrancarContador();
 }
-//Permitimos que se ejecute el drag and drop
+//Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
     ev.preventDefault();
   }
@@ -278,7 +278,29 @@ function allowDrop(ev) {
   function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-    ev.target.appendChild(document.getElementById(data));
+
+    if(data == "billeteAll"){
+        ev.target.appendChild(document.getElementById(data));
+        presupuesto = 0;
+        actualizarDinero();
+        document.getElementById("billete5").style.display = "none";
+        document.getElementById("duplicadoBillete").style.display = "none";
+    }else{
+        if(presupuesto > 5){
+            var billeteDuplicado = document.getElementById(data).cloneNode(true);
+            billeteDuplicado.id = "duplicadoBillete";
+            billeteDuplicado.setAttribute("dragable", "true");
+            billeteDuplicado.ondragstart = drag;
+            ev.target.appendChild(billeteDuplicado);
+            presupuesto-=5;
+            actualizarDinero();
+            }else{
+                ev.target.appendChild(document.getElementById(data));
+                presupuesto-=5;
+                actualizarDinero();
+                document.getElementById("billeteAll").style.display = "none";
+            }
+    }
   }
 // actualizamos el presupuesto
 function actualizarDinero(){
