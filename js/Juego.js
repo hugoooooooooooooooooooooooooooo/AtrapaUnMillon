@@ -207,32 +207,12 @@ const dificultadDificil = [
         }
     }
 ];
+
 // guardamos y leemos los localStorages
 var nombre = localStorage.getItem('nombre');
 var dificultad = localStorage.getItem('dificultad');
 rellenarDatos(nombre, dificultad);
-
-// establecemos los valores iniciales del cronómetro, la ronda y el presupuesto
-var tiempo = 90;
-var ronda = 1;
-var presupuesto = 200;
-
-//establecemos un delay para controlar los tiempos de ejecución, y un delay
-var delay = 1000;
-var delayTrampilla = 1000;
-
-// establecemos un array que guarda las respuestas con las que estamos trabajando en cada ronda
-var arrayRespuestas = new Array();
-
-//creamos un Set para controlar que no se repitan las preguntas
-var numsPregunta = new Set();
-
-//creamos variables para las animaciones, para luego revertirlas
-var animacionPregunta;
-var animacionTrampilla;
-
-window.addEventListener("load", jugar);
-
+//esta función rellena los datos del localStorage
 function rellenarDatos(nombre, dificultad){
     if(!nombre || !dificultad){
         window.location.href = "../html/inicio.html";
@@ -247,8 +227,40 @@ function rellenarDatos(nombre, dificultad){
         info.appendChild(dificultadTxt);
     }
 }
+
+// declaramos las variables iniciales que se van a resetear en cada ronda
+// declaramos el tiempo de cada ronda
+var tiempo;
+
+//establecemos un delay para controlar los tiempos de ejecución, y un delay para las animaciones de la trampilla
+var delay;
+var delayTrampilla;
+
+// declaramos un array que guarda las respuestas con las que estamos trabajando en cada ronda
+var arrayRespuestas = [];
+
+//hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
+function inicializarVariables(){
+    tiempo = 90;
+    delay = 1000;
+    delayTrampilla = 1000;
+    arrayRespuestas = new Array();
+}
+
+//creamos un Set para controlar que no se repitan las preguntas
+var numsPregunta = new Set();
+
+// inicializamos el presupuesto a 200 mil euros, este se irá cambiando en función de lo que el usuario consiga
+var presupuesto = 200;
+
+// inicializamos la ronda a 1, esta se irá aumentando hasta 8
+var ronda = 1;
+
+window.addEventListener("load", jugar);
+
 // función que controla el flujo de juego
 function jugar(){
+    inicializarVariables();
     actualizarDinero();
     imprimirPreguntas(dificultad);
     crearContador();
@@ -296,11 +308,10 @@ function imprimirPreguntas(dificultad){
 }
 
 // imprimimos las preguntas en función de su dificultad
-//esta función ess llamada en imprimirPreguntas
+//esta función es llamada en imprimirPreguntas
 function imprimir(arrayDificultad){
-    var longitud = arrayDificultad.length;
     do{
-        var random = Math.floor(Math.random() * longitud);
+        var random = Math.floor(Math.random() * arrayDificultad.length);
     } while(numsPregunta.has(random));
     numsPregunta.add(random);
     document.getElementById("pregunta-txt").textContent = arrayDificultad[random].pregunta;
@@ -310,10 +321,10 @@ function imprimir(arrayDificultad){
         respuesta = respuesta.split(".");
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
         txtRespuesta.textContent = respuesta[0];
-        animar(txtRespuesta);
+        animar(txtRespuesta, "normal", delay);
         guardar(respuesta, arrayRespuestas);
     }
-    animar(document.getElementById("pregunta-txt"));
+    animar(document.getElementById("pregunta-txt"), "normal", delay);
 }
 
 function guardar(elemento, array){
@@ -321,14 +332,16 @@ function guardar(elemento, array){
 }
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
-function animar(texto) {
-    setTimeout(function () {
-        texto.animate([
+function animar(texto, direccion, delayAnimacion ) {
+    
+    texto.animate([
         { opacity: 0 },
         { opacity: 1 }
-      ], { duration: 1000, fill: "both" });
-    }, delay);
-    delay += 1000;
+    ], { duration: 1000, fill: "both", delay: delayAnimacion, direction: direccion});
+    if(delayAnimacion != 0){
+        delayAnimacion += 1000;
+        delay = delayAnimacion;
+    }
   }
 
 function eliminar(elemento){
@@ -351,7 +364,7 @@ function arrancarContador(){
 // comprobamos las respuestas, quitando el dinero de aquellas que sean incorrectas
 function comprobarRespuesta(){
     var respuestasIncorrectas = getRespuestasIncorrectas();
-    animarTrampilla(respuestasIncorrectas);
+    animarTrampilla(respuestasIncorrectas, "normal", delayTrampilla);
     update();
 }
 
@@ -368,50 +381,43 @@ function getRespuestasIncorrectas(){
 }
 
 //función para animar las trampillas
-function animarTrampilla(trampillas){
+function animarTrampilla(trampillas, direccion, delay){
     for(i = 0; i < trampillas.length; i++){
         var caja = document.getElementById("trampilla" + (trampillas[i] + 1));
         animacionTrampilla = caja.animate([
         {backgroundColor: "#EEFFFE"},
         {backgroundColor: "rgb(104, 103, 102)"}
-    ], {duration: 1000, fill:"both", delay: delayTrampilla});
-    delayTrampilla += 2000;
+    ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
+    if(delay != 0){
+        delay += 2000;
+        delayTrampilla = delay;
+    }
     }
 }
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda < 8 && presupuesto > 0){
+    if(ronda <= 8 && presupuesto > 0){
         setTimeout(function(){
             ronda++;
-            reset();
-            crearContador();
+            resetAnimaciones();
             jugar();
         }, (delayTrampilla + 3000));
-        console.log(delayTrampilla + delay);
     }else{
         gameOver();
     }
-}
-// reseteamos el valor de todas las variables
-function reset(){
-    tiempo = 90;
-    delay = 1000;
-    delayTrampilla = 1000;
-    resetAnimaciones();
-    arrayRespuestas = new Array();
 }
 
 //reseteamos las animaciones
 function resetAnimaciones(){
     var respuestasIncorrectas = getRespuestasIncorrectas();
-    for(i = 0; i < respuestasIncorrectas.length; i++){
-        var caja = document.getElementById("trampilla" + (respuestasIncorrectas[i] + 1));
-        caja.animate([
-            {backgroundColor: "#EEFFFE"},
-            {backgroundColor: "rgb(104, 103, 102)"}
-        ], {duration: 1000, fill:"both", delay: delayTrampilla, direction: "reverse"});
+    animarTrampilla(respuestasIncorrectas, "reverse", 0);
+    var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
+    for(i = 0; i < divRespuestas.length; i++){
+        var txtRespuesta = document.getElementById("respuesta" + (i+1));
+        animar(txtRespuesta, "reverse", 0);
     }
+    animar(document.getElementById("pregunta-txt"), "reverse", 0);
 }
 
 function gameOver(){

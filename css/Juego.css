@@ -158,3 +158,25 @@ body{
     margin-top: 0px;
     font-weight: bold
 }
+.billete {
+    background-color: lightgreen;
+    width: 20px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px green solid;
+    border-radius: 10%;
+}
+.billete p{
+    color: black;
+    padding: 10%;
+    width: 50%;
+    height: 40%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+#billete5{
+    margin-top: 40px;
+}
