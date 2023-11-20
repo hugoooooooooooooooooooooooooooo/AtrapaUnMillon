@@ -455,10 +455,16 @@ function update(){
 //Esta funcion eliminia el dinero de las trampillas y lo vuelve a colocar en la caja
 function resetearDinero(){
     eliminarDineros("billete5", true);
+
+    var billeteDe5 = document.getElementById("billete5");
+    var padre5 = billeteDe5.parentElement;
+    padre5.removeChild(billeteDe5);
+    document.getElementById("5k").appendChild(billeteDe5);
     document.getElementById("billete5").style.display = "block";
+
     var billeteAll = document.getElementById("billeteAll");
-    var padre = billeteAll.parentElement;
-    padre.removeChild(billeteAll);
+    var padreAll = billeteAll.parentElement;
+    padreAll.removeChild(billeteAll);
     document.getElementById("allIn").appendChild(billeteAll);
     billeteAll.style.display = "block";
 }

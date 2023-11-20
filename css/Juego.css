@@ -113,6 +113,7 @@ body{
 #respuestas{
     grid-area: respuestas;
     display: flex;
+    flex-wrap: wrap;
     justify-content: space-between;
     width: 90%;
     margin: auto;
@@ -127,6 +128,12 @@ body{
     flex-direction: column;
     padding: 1em;
     width: 20%;
+}
+
+.respuesta img{
+    width: 25px;
+    height: 45px;
+    margin: 1px;
 }
 
 .respuesta p, #pregunta-txt{
@@ -168,7 +175,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-img{
+#mesa img{
     width: 60px;
     height: 100px;
     margin: 5px;
