@@ -283,7 +283,7 @@ function allowDrop(ev) {
         ev.target.appendChild(document.getElementById(data));
         presupuesto = 0;
         actualizarDinero();
-        eliminarDineros("all");
+        eliminarDineros("billete5");
     }else{
         if(presupuesto > 5){
             var billeteDuplicado = document.getElementById(data).cloneNode(true);
@@ -297,18 +297,14 @@ function allowDrop(ev) {
                 ev.target.appendChild(document.getElementById(data));
                 presupuesto-=5;
                 actualizarDinero();
-                eliminarDineros("5");
+                eliminarDineros("billeteAll");
             }
     }
   }
 
- function eliminarDineros(txt){
-    if(txt == "all"){
-        document.getElementById("billete5").style.display = "none";
-        document.getElementById("duplicadoBillete").style.display = "none";
-    }else{
-        document.getElementById("billeteAll").style.display = "none";
-    }
+  // Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina
+ function eliminarDineros(idBillete){
+    document.getElementById(idBillete).style.display = "none";
   }
 
 // actualizamos el presupuesto
