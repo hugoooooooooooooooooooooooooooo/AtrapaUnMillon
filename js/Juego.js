@@ -214,18 +214,14 @@ var dificultad = localStorage.getItem('dificultad');
 rellenarDatos(nombre, dificultad);
 //esta función rellena los datos del localStorage
 function rellenarDatos(nombre, dificultad){
-    if(!nombre || !dificultad){
-        window.location.href = "../html/inicio.html";
-    } else{
-        var info = document.getElementById("info");
-        var nombreTxt = document.createElement("p");
-        var dificultadTxt = document.createElement("p");
-        var dineroTxt = document.createElement("p");
-        nombreTxt.textContent = "Nombre: " + nombre;
-        dificultadTxt.textContent = "Dificultad: " + dificultad;
-        info.appendChild(nombreTxt);
-        info.appendChild(dificultadTxt);
-    }
+    var info = document.getElementById("info");
+    var nombreTxt = document.createElement("p");
+    var dificultadTxt = document.createElement("p");
+    var dineroTxt = document.createElement("p");
+    nombreTxt.textContent = "Nombre: " + nombre;
+    dificultadTxt.textContent = "Dificultad: " + dificultad;
+    info.appendChild(nombreTxt);
+    info.appendChild(dificultadTxt);
 }
 
 // declaramos las variables iniciales que se van a resetear en cada ronda
@@ -283,7 +279,7 @@ function allowDrop(ev) {
         ev.target.appendChild(document.getElementById(data));
         presupuesto = 0;
         actualizarDinero();
-        eliminarDineros("billete5");
+        eliminarDineros("billete5", true);
     }else{
         if(presupuesto > 5){
             var billeteDuplicado = document.getElementById(data).cloneNode(true);
@@ -297,15 +293,21 @@ function allowDrop(ev) {
                 ev.target.appendChild(document.getElementById(data));
                 presupuesto-=5;
                 actualizarDinero();
-                eliminarDineros("billeteAll");
+                eliminarDineros("billeteAll", false);
             }
     }
   }
 
-  // Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina
- function eliminarDineros(idBillete){
+  // Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
+ function eliminarDineros(idBillete, borrarDuplicados){
     document.getElementById(idBillete).style.display = "none";
+    var numBilletesDuplicados = document.querySelectorAll("#billeteDuplicado");
+    if(borrarDuplicados){
+        for (var i = 0; i < numBilletesDuplicados.length; i++) {
+            numBilletesDuplicados[i].style.display = "none";
+    }
   }
+}
 
 // actualizamos el presupuesto
 function actualizarDinero(){
