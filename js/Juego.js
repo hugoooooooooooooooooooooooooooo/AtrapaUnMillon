@@ -283,9 +283,8 @@ function allowDrop(ev) {
     }else{
         if(presupuesto > 5){
             var billeteDuplicado = document.getElementById(data).cloneNode(true);
-            billeteDuplicado.id = "duplicadoBillete";
-            billeteDuplicado.setAttribute("dragable", "true");
-            billeteDuplicado.ondragstart = drag;
+            billeteDuplicado.removeAttribute("id");
+            billeteDuplicado.className = "duplicadoBillete";
             ev.target.appendChild(billeteDuplicado);
             presupuesto-=5;
             actualizarDinero();
@@ -301,11 +300,12 @@ function allowDrop(ev) {
   // Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
  function eliminarDineros(idBillete, borrarDuplicados){
     document.getElementById(idBillete).style.display = "none";
-    var numBilletesDuplicados = document.querySelectorAll("#billeteDuplicado");
+    
+    var todosBilletesDuplicados = document.getElementsByClassName("duplicadoBillete");
     if(borrarDuplicados){
-        for (var i = 0; i < numBilletesDuplicados.length; i++) {
-            numBilletesDuplicados[i].style.display = "none";
-    }
+        for (var i = todosBilletesDuplicados.length -1; i >= 0; i--) {
+            todosBilletesDuplicados[i].remove();
+        }
   }
 }
 
@@ -440,15 +440,27 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= 8 && presupuesto > 0){
+    if(ronda <= 8 && presupuesto > -1){
         setTimeout(function(){
             ronda++;
             resetAnimaciones();
             jugar();
+            resetearDinero();
         }, (delayTrampilla + 3000));
     }else{
         gameOver();
     }
+}
+
+//Esta funcion eliminia el dinero de las trampillas y lo vuelve a colocar en la caja
+function resetearDinero(){
+    eliminarDineros("billete5", true);
+    document.getElementById("billete5").style.display = "block";
+    var billeteAll = document.getElementById("billeteAll");
+    var padre = billeteAll.parentElement;
+    padre.removeChild(billeteAll);
+    document.getElementById("allIn").appendChild(billeteAll);
+    billeteAll.style.display = "block";
 }
 
 //reseteamos las animaciones
