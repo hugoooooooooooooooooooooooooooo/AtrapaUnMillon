@@ -113,7 +113,6 @@ body{
 #respuestas{
     grid-area: respuestas;
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
     width: 90%;
     margin: auto;
@@ -130,14 +129,18 @@ body{
     width: 20%;
 }
 
-.respuesta img{
+.duplicado5{
     width: 25px;
     height: 45px;
     margin: 1px;
 }
 
-.respuesta p, #pregunta-txt{
-    opacity: 0;
+.duplicadoAll{
+    margin: 5px;
+    width: 90px;
+    height: 130px;
+    margin-left: 100px;
+    margin-top: 10%;
 }
 
 #respuestas .respuesta{
@@ -147,12 +150,26 @@ body{
     border: 2px solid lightblue;
     box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
     background-color: #EEFFFE;
+    position: relative;
     border-radius: 10px;
     width: 300px;
     height: 200px;
     transition-duration: 1s;
     transition-property: all;
     transition-timing-function: linear;
+    flex-wrap: wrap;
+}
+
+.eliminarBillete{
+    color: black;
+    font-size: 50px;
+    position: absolute;
+    bottom: 110px;
+    left: 260px;
+}
+
+.eliminarBillete:hover{
+    cursor: pointer;
 }
 
 #mesa{
@@ -175,7 +192,7 @@ body{
     justify-content: center;
     align-items: center;
 }
-#mesa img{
+img{
     width: 60px;
     height: 100px;
     margin: 5px;

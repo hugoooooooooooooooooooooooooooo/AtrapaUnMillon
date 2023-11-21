@@ -241,13 +241,18 @@ function inicializarVariables(){
     delay = 1000;
     delayTrampilla = 1000;
     arrayRespuestas = new Array();
+    var botones = document.getElementsByClassName("eliminarBillete");
+    for(i = 0; i < botones.length; i++){
+        botones[i].addEventListener("click", eliminarBillete);
+    }   
 }
 
 //creamos un Set para controlar que no se repitan las preguntas
 var numsPregunta = new Set();
 
 // inicializamos el presupuesto a 200 mil euros, este se irá cambiando en función de lo que el usuario consiga
-var presupuesto = 200;
+const presupuestoInicial = 200;
+var presupuesto = presupuestoInicial;
 
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
@@ -257,7 +262,7 @@ window.addEventListener("load", jugar);
 // función que controla el flujo de juego
 function jugar(){
     inicializarVariables();
-    actualizarDinero();
+    imprimirDinero();
     imprimirPreguntas(dificultad);
     crearContador();
     arrancarContador();
@@ -265,53 +270,83 @@ function jugar(){
 //Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
     ev.preventDefault();
-  }
+}
   
-  function drag(ev) {
+function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
-  }
-  
-  function drop(ev) {
+}
+
+function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
-
+    var billeteDuplicado = document.getElementById(data).cloneNode(true);
+    billeteDuplicado.removeAttribute("id");
     if(data == "billeteAll"){
-        ev.target.appendChild(document.getElementById(data));
-        presupuesto = 0;
-        actualizarDinero();
-        eliminarDineros("billete5", true);
-    }else{
-        if(presupuesto > 5){
-            var billeteDuplicado = document.getElementById(data).cloneNode(true);
-            billeteDuplicado.removeAttribute("id");
-            billeteDuplicado.className = "duplicadoBillete";
-            ev.target.appendChild(billeteDuplicado);
-            presupuesto-=5;
-            actualizarDinero();
-            }else{
-                ev.target.appendChild(document.getElementById(data));
-                presupuesto-=5;
-                actualizarDinero();
-                eliminarDineros("billeteAll", false);
-            }
+        ev.target.appendChild(billeteDuplicado);
+        billeteDuplicado.className = "duplicadoAll";
+    }else if (data == "billete5"){
+        billeteDuplicado.className = "duplicado5";
+        ev.target.appendChild(billeteDuplicado);
     }
-  }
+    actualizarDinero(billeteDuplicado, "resta");
+    if(presupuesto == 0){
+        eliminarBilletes(billeteDuplicado);
+    }
+}
 
-  // Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
- function eliminarDineros(idBillete, borrarDuplicados){
-    document.getElementById(idBillete).style.display = "none";
-    
-    var todosBilletesDuplicados = document.getElementsByClassName("duplicadoBillete");
-    if(borrarDuplicados){
-        for (var i = todosBilletesDuplicados.length -1; i >= 0; i--) {
-            todosBilletesDuplicados[i].remove();
-        }
-  }
+// Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
+function eliminarBilletes(billete){
+    var todosBilletesDuplicados;
+    if(billete.className == "duplicadoAll"){
+        todosBilletesDuplicados = document.getElementsByClassName("duplicado5");
+    }else{
+        todosBilletesDuplicados = document.getElementsByClassName("duplicadoAll");
+    }
+    document.getElementById("billete5").style.display = "none";
+    document.getElementById("billeteAll").style.display = "none";
+    eliminarDuplicados(todosBilletesDuplicados);
+}
+
+function eliminarDuplicados(billetes){
+    for (var i = billetes.length - 1; i >= 0; i--) {
+        billetes[i].remove();
+    }
 }
 
 // actualizamos el presupuesto
-function actualizarDinero(){
-    document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k"
+function actualizarDinero(billete, operacion){
+    if(operacion == "resta"){
+        if(billete.className == "duplicadoAll"){
+            presupuesto = 0;
+        }else{
+            presupuesto-= 5;
+        }
+    }else{
+        if(billete.className == "duplicadoAll"){
+            presupuesto = presupuestoInicial;
+        }else{
+            presupuesto += 5;
+        }
+    }
+    imprimirDinero();
+}
+
+function imprimirDinero(){
+    if(presupuesto == 0){
+        document.getElementById("dinero").textContent = "Dinero: " + presupuesto;
+    }else{
+        document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k";
+    }
+}
+
+function eliminarBillete(e){
+    var caja = e.target.parentElement;
+    var ultimo = caja.lastElementChild;
+    if(ultimo.className.includes("duplicado")){
+        ultimo.remove();
+        actualizarDinero(ultimo, "suma");
+    }
+    resetearMesa();
 }
 // asignamos el valor del tiempo al contador (también nos servirá para actualizarlo)
 function crearContador(){
@@ -444,29 +479,17 @@ function update(){
         setTimeout(function(){
             ronda++;
             resetAnimaciones();
+            resetearMesa();
             jugar();
-            resetearDinero();
         }, (delayTrampilla + 3000));
     }else{
         gameOver();
     }
 }
 
-//Esta funcion eliminia el dinero de las trampillas y lo vuelve a colocar en la caja
-function resetearDinero(){
-    eliminarDineros("billete5", true);
-
-    var billeteDe5 = document.getElementById("billete5");
-    var padre5 = billeteDe5.parentElement;
-    padre5.removeChild(billeteDe5);
-    document.getElementById("5k").appendChild(billeteDe5);
-    document.getElementById("billete5").style.display = "block";
-
-    var billeteAll = document.getElementById("billeteAll");
-    var padreAll = billeteAll.parentElement;
-    padreAll.removeChild(billeteAll);
-    document.getElementById("allIn").appendChild(billeteAll);
-    billeteAll.style.display = "block";
+function resetearMesa(){
+    document.getElementById("billete5").style.display = "inline";
+    document.getElementById("billeteAll").style.display = "inline";
 }
 
 //reseteamos las animaciones
@@ -484,10 +507,3 @@ function resetAnimaciones(){
 function gameOver(){
     window.location.href = "../html/inicio.html";
 }
-
-
-
-
-
-
-
