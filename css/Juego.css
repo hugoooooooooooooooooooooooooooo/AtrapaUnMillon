@@ -1,6 +1,7 @@
 body{
     margin: 0px;
     padding: 0px;
+    background-color: lightsteelblue;
 }
 
 #contenido{
@@ -20,6 +21,9 @@ body{
     margin: 1em;
     width: 150px;
     height:200px;
+    border-radius: 10%;
+    border: 1px solid rgb(39, 45, 214);
+    box-shadow: 0 0 30px rgba(30, 21, 206, 0.5);
 }
 #info p{
     padding: 0.5em;
@@ -31,8 +35,9 @@ body{
     margin-top: 10px;
     padding: 1em;
     height: auto;
-    background-color: beige;
+    background: linear-gradient(to bottom, #2A84F0, #9CC9FD);
     border-radius: 10px;
+    box-shadow: 1px 1px 2px white, 0 0 25px red, 0 0 5px red;
 }
 
 #pregunta h3{
@@ -55,12 +60,32 @@ body{
     align-items: center;
     font-size: 1.5em;
     border-radius: 50%;
-    color: black;
-    background-color: red;
+    color: white;
+    background-color: darkblue;
     width: 40%;
     height: 30%;
     padding: 0.5em;
     margin-right: 5px;
+    box-shadow: 1px 1px 2px white, 0 0 25px red, 0 0 5px red;
+    transform: scale(1);
+	animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+	0% {
+		transform: scale(0.90);
+		box-shadow: 1px 1px 2px red, 0 0 25px red, 0 0 5px red;
+	}
+
+	70% {
+		transform: scale(1);
+		box-shadow: 1px 1px 2px red, 0 0 25px red, 0 0 5px red;
+	}
+
+	100% {
+		transform: scale(0.90);
+		box-shadow: 1px 1px 2px red, 0 0 25px red, 0 0 5px red;
+	}
 }
 
 #caja-contador button{
@@ -77,6 +102,12 @@ body{
     flex-direction: row;
     justify-content: space-between;
     flex-wrap: wrap;
+}
+
+#pantallaRespuestas .respuesta{
+    background-color: darkblue;
+    color: white;
+    border-radius: 8%;
 }
 
 #respuestas{
@@ -98,8 +129,18 @@ body{
     width: 20%;
 }
 
-.respuesta p, #pregunta-txt{
-    opacity: 0;
+.duplicado5{
+    width: 25px;
+    height: 45px;
+    margin: 1px;
+}
+
+.duplicadoAll{
+    margin: 5px;
+    width: 90px;
+    height: 130px;
+    margin-left: 100px;
+    margin-top: 10%;
 }
 
 #respuestas .respuesta{
@@ -109,27 +150,32 @@ body{
     border: 2px solid lightblue;
     box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
     background-color: #EEFFFE;
+    position: relative;
     border-radius: 10px;
     width: 300px;
     height: 200px;
     transition-duration: 1s;
     transition-property: all;
     transition-timing-function: linear;
+    flex-wrap: wrap;
 }
 
-/* #respuestas .respuesta div:hover{
-    border: 2px solid black;
-    box-shadow: 1px 1px 2px white, 0 0 25px blue, 0 0 5px darkblue;
-    background-color: rgb(104, 103, 102);
-    border-radius: 10px;
-    width: 300px;
-    height: 200px;
-} */
+.eliminarBillete{
+    color: black;
+    font-size: 50px;
+    position: absolute;
+    bottom: 110px;
+    left: 260px;
+}
+
+.eliminarBillete:hover{
+    cursor: pointer;
+}
 
 #mesa{
     grid-area: mesa;
     width: 90%;
-    background-image: url("../img/mesa.jpg");
+    background-image: url("../img/mesa.png");
     background-size: cover;
     border: 1px solid black;
     padding: 1em;
@@ -146,37 +192,14 @@ body{
     justify-content: center;
     align-items: center;
 }
-#mesa div img{
-    width: 50px;
-    height: 50px;
-    box-shadow: 1px 1px 2px black, 0 0 25px black, 0 0 5px black;
-    border: 1px solid black;
+img{
+    width: 60px;
+    height: 100px;
+    margin: 5px;
 }
 
 #mesa div h3{
     color: white;
     margin-top: 0px;
     font-weight: bold
-}
-.billete {
-    background-color: lightgreen;
-    width: 20px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 3px green solid;
-    border-radius: 10%;
-}
-.billete p{
-    color: black;
-    padding: 10%;
-    width: 50%;
-    height: 40%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-#billete5{
-    margin-top: 40px;
 }

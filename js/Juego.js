@@ -21,9 +21,9 @@ const dificultadFacil = [
     {
         pregunta: "¿Quién escribió Hamlet?",
         respuestas: {
-            0: "Charles Dickens.",
+            0: "William Shakespeare. (Respuesta Correcta)",
             1: "Jane Austen.",
-            2: "William Shakespeare. (Respuesta Correcta)",
+            2: "Charles Dickens.",
             3: "Edgar Allan Poe."
         }
     },
@@ -52,9 +52,9 @@ const dificultadMedia = [
     {
         pregunta: "¿Cuál es la flor nacional de Japón?",
         respuestas: {
-            0: "Orquídea.",
+            0: "El cerezo. (Respuesta Correcta)",
             1: "Lirio.",
-            2: "El cerezo. (Respuesta Correcta)",
+            2: "Orquídea.",
             3: "Tulipán."
         }
     },
@@ -71,9 +71,9 @@ const dificultadMedia = [
         pregunta: "¿En qué año comenzó la II Guerra Mundial?",
         respuestas: {
             0: "1940.",
-            1: "1945.",
+            1: "En 1939. (Respuesta Correcta)",
             2: "1935.",
-            3: "En 1939. (Respuesta Correcta)"
+            3: "1945"
         }
     },
     {
@@ -110,10 +110,10 @@ const dificultadDificil = [
     {
         pregunta: "¿En qué año cayó el muro de Berlín?",
         respuestas: {
-            0: "En 1991.",
+            0: "En 1989. (Respuesta Correcta)",
             1: "En 1979.",
             2: "En 1985.",
-            3: "En 1989. (Respuesta Correcta)"
+            3: "En 1991"
         }
     },
     {
@@ -146,23 +146,23 @@ const dificultadDificil = [
     {
         pregunta: "¿Cómo se llama el cuadro más famoso de Gustav Klimt?",
         respuestas: {
-            0: "La Dama Dorada.",
+            0: "El beso. (Respuesta Correcta)",
             1: "El Árbol de la Vida.",
             2: "Retrato de Adele Bloch-Bauer.",
-            3: "El beso. (Respuesta Correcta)"
+            3: "La Dama Dorada"
         }
     },
     {
         pregunta: "¿Cuál es el récord mundial de Usain Bolt en 100 metros lisos?",
         respuestas: {
             0: "9,75 segundos.",
-            1: "9,45 segundos.",
+            1: "9,58 segundos. (Respuesta Correcta)",   
             2: "9,95 segundos.",
-            3: "9,58 segundos. (Respuesta Correcta)"
+            3: "9,45 segundos.",
         }
     },
     {
-        pregunta: "¿CUÁL ES LA CAPITAL DE NICARAGUA?",
+        pregunta: "¿Cúal es la capital de Nicaragua?",
         respuestas: {
             0: "Nicaragua.",
             1: "Tegucigalpa.",
@@ -171,16 +171,16 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿DÓNDE NACIÓ VICENT VAN GOGH?",
+        pregunta: "¿Dónde nació Vicent Van Gogh?",
         respuestas: {
-            0: "Utrecht.",
+            0: "Zundert. (Respuesta Correcta)",
             1: "Groninga.",
             2: "Ámsterdam.",
-            3: "Zundert. (Respuesta Correcta)"
+            3: "Utrecht."
         }
     },
     {
-        pregunta: "¿CUÁNDO COMENZÓ LA EDAD CONTEMPORÁNEA?",
+        pregunta: "¿Cuándo comenzó la edad contemporánea?",
         respuestas: {
             0: "En 1800.",
             1: "En 1750.",
@@ -189,16 +189,16 @@ const dificultadDificil = [
         }
     },
     {
-        pregunta: "¿QUÉ TERRITORIO SE INDEPENDIZÓ DE SERBIA EN 2008 SIN QUE SE HAYA AÚN RECONOCIDO DICHA INDEPENDENCIA POR LA TOTALIDAD DE PAÍSES?",
+        pregunta: "¿Qué territorio se independizó de serbia en 2008 sin que se haya aún reconocido dicha independencia por la totalidad de países?",
         respuestas: {
             0: "Montenegro.",
-            1: "Bosnia y Herzegovina.",
+            1: "Kosovo. (Respuesta Correcta)",
             2: "Macedonia del Norte.",
-            3: "Kosovo. (Respuesta Correcta)"
+            3: "Bosnia y Herzegovina."
         }
     },
     {
-        pregunta: "¿EN QUÉ AÑO COMENZÓ EL SEGUNDO REICH EN ALEMANIA?",
+        pregunta: "¿En qué año comenzó el segundo reich en Alemania?",
         respuestas: {
             0: "En 1900.",
             1: "En 1850.",
@@ -214,18 +214,14 @@ var dificultad = localStorage.getItem('dificultad');
 rellenarDatos(nombre, dificultad);
 //esta función rellena los datos del localStorage
 function rellenarDatos(nombre, dificultad){
-    if(!nombre || !dificultad){
-        window.location.href = "../html/inicio.html";
-    } else{
-        var info = document.getElementById("info");
-        var nombreTxt = document.createElement("p");
-        var dificultadTxt = document.createElement("p");
-        var dineroTxt = document.createElement("p");
-        nombreTxt.textContent = "Nombre: " + nombre;
-        dificultadTxt.textContent = "Dificultad: " + dificultad;
-        info.appendChild(nombreTxt);
-        info.appendChild(dificultadTxt);
-    }
+    var info = document.getElementById("info");
+    var nombreTxt = document.createElement("p");
+    var dificultadTxt = document.createElement("p");
+    var dineroTxt = document.createElement("p");
+    nombreTxt.textContent = "Nombre: " + nombre;
+    dificultadTxt.textContent = "Dificultad: " + dificultad;
+    info.appendChild(nombreTxt);
+    info.appendChild(dificultadTxt);
 }
 
 // declaramos las variables iniciales que se van a resetear en cada ronda
@@ -241,17 +237,22 @@ var arrayRespuestas = [];
 
 //hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
 function inicializarVariables(){
-    tiempo = 90;
+    tiempo = 60;
     delay = 1000;
     delayTrampilla = 1000;
     arrayRespuestas = new Array();
+    var botones = document.getElementsByClassName("eliminarBillete");
+    for(i = 0; i < botones.length; i++){
+        botones[i].addEventListener("click", eliminarBillete);
+    }   
 }
 
 //creamos un Set para controlar que no se repitan las preguntas
 var numsPregunta = new Set();
 
 // inicializamos el presupuesto a 200 mil euros, este se irá cambiando en función de lo que el usuario consiga
-var presupuesto = 200;
+const presupuestoInicial = 200;
+var presupuesto = presupuestoInicial;
 
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
@@ -261,14 +262,91 @@ window.addEventListener("load", jugar);
 // función que controla el flujo de juego
 function jugar(){
     inicializarVariables();
-    actualizarDinero();
+    imprimirDinero();
     imprimirPreguntas(dificultad);
     crearContador();
     arrancarContador();
 }
+//Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
+function allowDrop(ev) {
+    ev.preventDefault();
+}
+  
+function drag(ev) {
+    ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+    ev.preventDefault();
+    var data = ev.dataTransfer.getData("text");
+    var billeteDuplicado = document.getElementById(data).cloneNode(true);
+    billeteDuplicado.removeAttribute("id");
+    if(data == "billeteAll"){
+        ev.target.appendChild(billeteDuplicado);
+        billeteDuplicado.className = "duplicadoAll";
+    }else if (data == "billete5"){
+        billeteDuplicado.className = "duplicado5";
+        ev.target.appendChild(billeteDuplicado);
+    }
+    actualizarDinero(billeteDuplicado, "resta");
+    if(presupuesto == 0){
+        eliminarBilletes(billeteDuplicado);
+    }
+}
+
+// Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
+function eliminarBilletes(billete){
+    var todosBilletesDuplicados;
+    if(billete.className == "duplicadoAll"){
+        todosBilletesDuplicados = document.getElementsByClassName("duplicado5");
+    }else{
+        todosBilletesDuplicados = document.getElementsByClassName("duplicadoAll");
+    }
+    document.getElementById("billete5").style.display = "none";
+    document.getElementById("billeteAll").style.display = "none";
+    eliminarDuplicados(todosBilletesDuplicados);
+}
+
+function eliminarDuplicados(billetes){
+    for (var i = billetes.length - 1; i >= 0; i--) {
+        billetes[i].remove();
+    }
+}
+
 // actualizamos el presupuesto
-function actualizarDinero(){
-    document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k"
+function actualizarDinero(billete, operacion){
+    if(operacion == "resta"){
+        if(billete.className == "duplicadoAll"){
+            presupuesto = 0;
+        }else{
+            presupuesto-= 5;
+        }
+    }else{
+        if(billete.className == "duplicadoAll"){
+            presupuesto = presupuestoInicial;
+        }else{
+            presupuesto += 5;
+        }
+    }
+    imprimirDinero();
+}
+
+function imprimirDinero(){
+    if(presupuesto == 0){
+        document.getElementById("dinero").textContent = "Dinero: " + presupuesto;
+    }else{
+        document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k";
+    }
+}
+
+function eliminarBillete(e){
+    var caja = e.target.parentElement;
+    var ultimo = caja.lastElementChild;
+    if(ultimo.className.includes("duplicado")){
+        ultimo.remove();
+        actualizarDinero(ultimo, "suma");
+    }
+    resetearMesa();
 }
 // asignamos el valor del tiempo al contador (también nos servirá para actualizarlo)
 function crearContador(){
@@ -397,15 +475,21 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= 8 && presupuesto > 0){
+    if(ronda <= 8 && presupuesto > -1){
         setTimeout(function(){
             ronda++;
             resetAnimaciones();
+            resetearMesa();
             jugar();
         }, (delayTrampilla + 3000));
     }else{
         gameOver();
     }
+}
+
+function resetearMesa(){
+    document.getElementById("billete5").style.display = "inline";
+    document.getElementById("billeteAll").style.display = "inline";
 }
 
 //reseteamos las animaciones
@@ -423,10 +507,3 @@ function resetAnimaciones(){
 function gameOver(){
     window.location.href = "../html/inicio.html";
 }
-
-
-
-
-
-
-

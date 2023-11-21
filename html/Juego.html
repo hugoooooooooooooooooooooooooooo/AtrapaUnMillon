@@ -40,28 +40,34 @@
         <div id="respuestas">
             <div class="respuesta"> 
                 <h4>A</h4>
-                <div id="trampilla1"></div>
+                <div id="trampilla1" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p class="eliminarBillete"> - </p>
+                </div>
             </div>
             <div class="respuesta">
                 <h4>B</h4>
-                <div id="trampilla2"></div>
+                <div id="trampilla2" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p class="eliminarBillete"> - </p>
+                </div>
             </div>
             <div class="respuesta">
                 <h4>C</h4>
-                <div id="trampilla3"></div>
+                <div id="trampilla3" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p class="eliminarBillete"> - </p>
+                </div>
             </div>
             <div class="respuesta">
                 <h4>D</h4>
-                <div id="trampilla4"></div>
+                <div id="trampilla4" ondrop="drop(event)" ondragover="allowDrop(event)">
+                    <p class="eliminarBillete"> - </p></div>
             </div>
         </div>
         <div id="mesa">
             <div id="5k">
-                <div id="billete5" class="billete" draggable="true" ondragstart="drag(event)"><p>5k</p></div>
+                <img src="../img/billete.png" alt="billete" id="billete5" draggable="true" ondragstart="drag(event)">
             </div>
             <div id="all in">
-                <h3>ALL-IN</h3>
-                <div id="billeteAll" class="billete" draggable="true" ondragstart="drag(event)"><p>$</p></div>
+                <img src="../img/billeti.png" alt="billete" id="billeteAll" draggable="true" ondragstart="drag(event)">
             </div>
         </div>
     </div>

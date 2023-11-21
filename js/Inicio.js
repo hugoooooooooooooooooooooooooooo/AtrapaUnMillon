@@ -7,5 +7,9 @@ boton.addEventListener("click", ()=>{
     localStorage.setItem('nombre', nombre);
     localStorage.setItem('dificultad', dificultad);
 
-    window.location.href = '../html/Juego.html';
+    if(!nombre || !dificultad){
+        alert("Es obligatorio seleccionar un nombre y una dificultad");
+    }else{
+        window.location.href = '../html/Juego.html';
+    }
 })
