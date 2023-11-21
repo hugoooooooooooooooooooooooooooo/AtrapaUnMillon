@@ -360,27 +360,32 @@ function saltar(){
 //función general que inicia el juego dependiendo de su dificultad, que imprime las preguntas en función de la ronda en la que estemos.
 //Esta función llama a imprimir
 function imprimirPreguntas(dificultad){
+    imprimir(getArrayDificultad(ronda, dificultad));
+}
+
+// función que nos indica el array que debemos de utilizar según la ronda en la wue se encuentre el usuario
+function getArrayDificultad(ronda, dificultad){
     if(dificultad == "Facil"){
         if(ronda <= 5){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else{
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         }
     } else if (dificultad== "Media"){
         if(ronda <= 3){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else if (ronda <= 6){
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         } else{
-            imprimir(dificultadDificil);
+            return dificultadDificil;
         }
     } else{
         if(ronda <= 1){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else if (ronda <= 4){
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         } else{
-            imprimir(dificultadDificil);
+            return dificultadDificil;
         }
     }
 }
@@ -388,6 +393,9 @@ function imprimirPreguntas(dificultad){
 // imprimimos las preguntas en función de su dificultad
 //esta función es llamada en imprimirPreguntas
 function imprimir(arrayDificultad){
+    if(arrayDificultad != getArrayDificultad(ronda - 1, dificultad)){
+        numsPregunta = new Set();
+    }
     do{
         var random = Math.floor(Math.random() * arrayDificultad.length);
     } while(numsPregunta.has(random));
@@ -399,10 +407,10 @@ function imprimir(arrayDificultad){
         respuesta = respuesta.split(".");
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
         txtRespuesta.textContent = respuesta[0];
-        animar(txtRespuesta, "normal", delay);
+        cambiarOpacity(txtRespuesta, "normal", delay);
         guardar(respuesta, arrayRespuestas);
     }
-    animar(document.getElementById("pregunta-txt"), "normal", delay);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay);
 }
 
 function guardar(elemento, array){
@@ -410,7 +418,7 @@ function guardar(elemento, array){
 }
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
-function animar(texto, direccion, delayAnimacion ) {
+function cambiarOpacity(texto, direccion, delayAnimacion ) {
     
     texto.animate([
         { opacity: 0 },
@@ -499,9 +507,9 @@ function resetAnimaciones(){
     var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
     for(i = 0; i < divRespuestas.length; i++){
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
-        animar(txtRespuesta, "reverse", 0);
+        cambiarOpacity(txtRespuesta, "reverse", 0);
     }
-    animar(document.getElementById("pregunta-txt"), "reverse", 0);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "reverse", 0);
 }
 
 function gameOver(){
