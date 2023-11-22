@@ -235,9 +235,8 @@ var delayTrampilla;
 // declaramos un array que guarda las respuestas con las que estamos trabajando en cada ronda
 var arrayRespuestas = [];
 
-//creamos una constante para indicar el máximo de rondas
+//max rondas constante
 const MAX_RONDAS = 8;
-
 //hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
 function inicializarVariables(){
     tiempo = 60;
@@ -248,6 +247,8 @@ function inicializarVariables(){
     for(i = 0; i < botones.length; i++){
         botones[i].addEventListener("click", eliminarBillete);
     }   
+    contadorPresupuesto = 0;
+    presupuesto = presupuestoActual;
 }
 
 //creamos un Set para controlar que no se repitan las preguntas
@@ -255,14 +256,15 @@ var numsPregunta = new Set();
 
 // inicializamos el presupuesto a 200 mil euros, este se irá cambiando en función de lo que el usuario consiga
 const presupuestoInicial = 200;
-var presupuesto = presupuestoInicial;
+var presupuesto;
+var presupuestoActual = presupuestoInicial;
 
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
-
-//imprimimos las rondas, creándolas antes de empezar a jugar
-imprimirRondas();
+//variable que nos ayuda a ir contando los billetes que hay en la trampilla correcta
+var contadorPresupuesto;
 window.addEventListener("load", jugar);
+imprimirRondas();
 
 // función que controla el flujo de juego
 function jugar(){
@@ -273,7 +275,6 @@ function jugar(){
     crearContador();
     arrancarContador();
 }
-
 //creamos una función para mostrar la ronda en la que nos hayamos
 function imprimirRondas(){
     var padre = iv = document.createElement("div");
@@ -296,7 +297,6 @@ function mostrarRonda(){
         }
     }
 }
-
 //Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
     ev.preventDefault();
@@ -449,6 +449,7 @@ function guardar(elemento, array){
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
 function cambiarOpacity(elemento, direccion, delayAnimacion ) {
+    
     elemento.animate([
         { opacity: 0 },
         { opacity: 1 }
@@ -480,10 +481,50 @@ function arrancarContador(){
 function comprobarRespuesta(){
     var respuestasIncorrectas = getRespuestasIncorrectas();
     animarTrampilla(respuestasIncorrectas, "normal", delayTrampilla);
+    var trampillaCorrecta = getRespuestaCorrecta();
+    contarDineroCorrecto(trampillaCorrecta);
+    quitarDineroTrampilla();
     update();
 }
 
+function contarDineroCorrecto(trampilla){
+    console.log(trampilla);
+    var dineroCorrecto = trampilla.children;
+    for (let i = 0; i < dineroCorrecto.length; i++) {
+        if(dineroCorrecto[i].className.includes("duplicado")){
+            setPresupuesto(dineroCorrecto[i]);
+        }else{
+            presupuestoActual = 0;
+        }
+    }
+}
 
+function setPresupuesto(billete){
+    if(billete.className == "duplicado5"){
+        contadorPresupuesto += 5;
+        presupuestoActual = contadorPresupuesto;
+    }
+}
+
+function quitarDineroTrampilla(){
+    var todosBilletes = document.querySelectorAll("img");
+    for(var i = 0; i < todosBilletes.length;i++){
+        if(todosBilletes[i].className.includes("duplicado")){
+            todosBilletes[i].remove();
+        }
+    }
+}
+
+function getRespuestaCorrecta(){
+    var correcta;
+    for(i = 0; i < arrayRespuestas.length; i++){
+        var comprobacion = arrayRespuestas[i][1].toLowerCase();
+        if(comprobacion.includes("correcta")){
+            correcta = document.getElementById("trampilla" + (i+1));
+        }
+    }
+    return correcta;
+}
 function getRespuestasIncorrectas(){
     var salida = new Array();
     for(i = 0; i < arrayRespuestas.length; i++){
@@ -512,16 +553,16 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= MAX_RONDAS && presupuesto > -1){
-        setTimeout(function(){
+    setTimeout(function(){
+        if(ronda <= MAX_RONDAS && presupuestoActual > 0){
             ronda++;
             resetAnimaciones();
             resetearMesa();
             jugar();
-        }, (delayTrampilla + 3000));
-    }else{
-        gameOver();
-    }
+        }else{
+            gameOver();
+        }
+    }, (delayTrampilla + 3000));
 }
 
 function resetearMesa(){
