@@ -235,6 +235,9 @@ var delayTrampilla;
 // declaramos un array que guarda las respuestas con las que estamos trabajando en cada ronda
 var arrayRespuestas = [];
 
+//creamos una constante para indicar el máximo de rondas
+const MAX_RONDAS = 8;
+
 //hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
 function inicializarVariables(){
     tiempo = 60;
@@ -257,16 +260,43 @@ var presupuesto = presupuestoInicial;
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
 
+//imprimimos las rondas, creándolas antes de empezar a jugar
+imprimirRondas();
 window.addEventListener("load", jugar);
 
 // función que controla el flujo de juego
 function jugar(){
+    mostrarRonda();
     inicializarVariables();
     imprimirDinero();
     imprimirPreguntas(dificultad);
     crearContador();
     arrancarContador();
 }
+
+//creamos una función para mostrar la ronda en la que nos hayamos
+function imprimirRondas(){
+    var padre = iv = document.createElement("div");
+    padre.id = "rondas";
+    var siguiente = document.getElementById("pregunta").firstChild;
+    document.getElementById("pregunta").insertBefore(padre, siguiente);
+    for(i = 1; i <= MAX_RONDAS; i++){
+        var div = document.createElement("div");
+        div.innerText = i;
+        div.className = "ronda";
+        padre.appendChild(div);
+    }
+}
+
+function mostrarRonda(){
+    var rondas = document.getElementById("rondas").children;
+    for(i = 0; i < rondas.length; i++){
+        if((ronda - 1) == i){
+            rondas[i].id = "rondaActual";
+        }
+    }
+}
+
 //Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
     ev.preventDefault();
@@ -418,9 +448,8 @@ function guardar(elemento, array){
 }
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
-function cambiarOpacity(texto, direccion, delayAnimacion ) {
-    
-    texto.animate([
+function cambiarOpacity(elemento, direccion, delayAnimacion ) {
+    elemento.animate([
         { opacity: 0 },
         { opacity: 1 }
     ], { duration: 1000, fill: "both", delay: delayAnimacion, direction: direccion});
@@ -483,7 +512,7 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= 8 && presupuesto > -1){
+    if(ronda <= MAX_RONDAS && presupuesto > -1){
         setTimeout(function(){
             ronda++;
             resetAnimaciones();
