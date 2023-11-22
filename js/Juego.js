@@ -493,12 +493,12 @@ function comprobarRespuesta(){
 
 function contarDineroCorrecto(trampilla){
     var dineroCorrecto = trampilla.children;
-    for (let i = 0; i < dineroCorrecto.length; i++) {
-        if(dineroCorrecto[i].className.includes("duplicado")){
-            setPresupuesto(dineroCorrecto[i]);
-        }else if(!dineroCorrecto[i].className == "eliminarBillete"){
-            presupuestoActual = 0;
+    if(dineroCorrecto[1]){
+        for (let i = 1; i < dineroCorrecto.length; i++) {
+          setPresupuesto(dineroCorrecto[i]);
         }
+    }else{
+        presupuestoActual = 0;
     }
 }
 
@@ -586,5 +586,6 @@ function resetAnimaciones(){
 }
 
 function gameOver(){
-    window.location.href = "../html/inicio.html";
+    localStorage.setItem("dinero", presupuestoActual);
+    window.location.href = "../html/Resultado.html";
 }
