@@ -235,6 +235,8 @@ var delayTrampilla;
 // declaramos un array que guarda las respuestas con las que estamos trabajando en cada ronda
 var arrayRespuestas = [];
 
+//max rondas constante
+const MAX_RONDAS = 8;
 //hacemos una función que asigna un valor inicial a las variables, y sirve tanto para inicializar las variables como para resetearlas
 function inicializarVariables(){
     tiempo = 60;
@@ -245,6 +247,8 @@ function inicializarVariables(){
     for(i = 0; i < botones.length; i++){
         botones[i].addEventListener("click", eliminarBillete);
     }   
+    contadorPresupuesto = 0;
+    presupuesto = presupuestoActual;
 }
 
 //creamos un Set para controlar que no se repitan las preguntas
@@ -252,20 +256,46 @@ var numsPregunta = new Set();
 
 // inicializamos el presupuesto a 200 mil euros, este se irá cambiando en función de lo que el usuario consiga
 const presupuestoInicial = 200;
-var presupuesto = presupuestoInicial;
+var presupuesto;
+var presupuestoActual = presupuestoInicial;
 
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
-
+//variable que nos ayuda a ir contando los billetes que hay en la trampilla correcta
+var contadorPresupuesto;
 window.addEventListener("load", jugar);
+imprimirRondas();
 
 // función que controla el flujo de juego
 function jugar(){
+    mostrarRonda();
     inicializarVariables();
     imprimirDinero();
     imprimirPreguntas(dificultad);
     crearContador();
     arrancarContador();
+}
+//creamos una función para mostrar la ronda en la que nos hayamos
+function imprimirRondas(){
+    var padre = iv = document.createElement("div");
+    padre.id = "rondas";
+    var siguiente = document.getElementById("pregunta").firstChild;
+    document.getElementById("pregunta").insertBefore(padre, siguiente);
+    for(i = 1; i <= MAX_RONDAS; i++){
+        var div = document.createElement("div");
+        div.innerText = i;
+        div.className = "ronda";
+        padre.appendChild(div);
+    }
+}
+
+function mostrarRonda(){
+    var rondas = document.getElementById("rondas").children;
+    for(i = 0; i < rondas.length; i++){
+        if((ronda - 1) == i){
+            rondas[i].id = "rondaActual";
+        }
+    }
 }
 //Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
@@ -360,27 +390,32 @@ function saltar(){
 //función general que inicia el juego dependiendo de su dificultad, que imprime las preguntas en función de la ronda en la que estemos.
 //Esta función llama a imprimir
 function imprimirPreguntas(dificultad){
+    imprimir(getArrayDificultad(ronda, dificultad));
+}
+
+// función que nos indica el array que debemos de utilizar según la ronda en la wue se encuentre el usuario
+function getArrayDificultad(ronda, dificultad){
     if(dificultad == "Facil"){
         if(ronda <= 5){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else{
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         }
     } else if (dificultad== "Media"){
         if(ronda <= 3){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else if (ronda <= 6){
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         } else{
-            imprimir(dificultadDificil);
+            return dificultadDificil;
         }
     } else{
         if(ronda <= 1){
-            imprimir(dificultadFacil);
+            return dificultadFacil;
         }else if (ronda <= 4){
-            imprimir(dificultadMedia);
+            return dificultadMedia;
         } else{
-            imprimir(dificultadDificil);
+            return dificultadDificil;
         }
     }
 }
@@ -388,6 +423,9 @@ function imprimirPreguntas(dificultad){
 // imprimimos las preguntas en función de su dificultad
 //esta función es llamada en imprimirPreguntas
 function imprimir(arrayDificultad){
+    if(arrayDificultad != getArrayDificultad(ronda - 1, dificultad)){
+        numsPregunta = new Set();
+    }
     do{
         var random = Math.floor(Math.random() * arrayDificultad.length);
     } while(numsPregunta.has(random));
@@ -399,10 +437,10 @@ function imprimir(arrayDificultad){
         respuesta = respuesta.split(".");
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
         txtRespuesta.textContent = respuesta[0];
-        animar(txtRespuesta, "normal", delay);
+        cambiarOpacity(txtRespuesta, "normal", delay);
         guardar(respuesta, arrayRespuestas);
     }
-    animar(document.getElementById("pregunta-txt"), "normal", delay);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay);
 }
 
 function guardar(elemento, array){
@@ -410,9 +448,9 @@ function guardar(elemento, array){
 }
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
-function animar(texto, direccion, delayAnimacion ) {
+function cambiarOpacity(elemento, direccion, delayAnimacion ) {
     
-    texto.animate([
+    elemento.animate([
         { opacity: 0 },
         { opacity: 1 }
     ], { duration: 1000, fill: "both", delay: delayAnimacion, direction: direccion});
@@ -443,10 +481,50 @@ function arrancarContador(){
 function comprobarRespuesta(){
     var respuestasIncorrectas = getRespuestasIncorrectas();
     animarTrampilla(respuestasIncorrectas, "normal", delayTrampilla);
+    var trampillaCorrecta = getRespuestaCorrecta();
+    contarDineroCorrecto(trampillaCorrecta);
+    quitarDineroTrampilla();
     update();
 }
 
+function contarDineroCorrecto(trampilla){
+    console.log(trampilla);
+    var dineroCorrecto = trampilla.children;
+    for (let i = 0; i < dineroCorrecto.length; i++) {
+        if(dineroCorrecto[i].className.includes("duplicado")){
+            setPresupuesto(dineroCorrecto[i]);
+        }else{
+            presupuestoActual = 0;
+        }
+    }
+}
 
+function setPresupuesto(billete){
+    if(billete.className == "duplicado5"){
+        contadorPresupuesto += 5;
+        presupuestoActual = contadorPresupuesto;
+    }
+}
+
+function quitarDineroTrampilla(){
+    var todosBilletes = document.querySelectorAll("img");
+    for(var i = 0; i < todosBilletes.length;i++){
+        if(todosBilletes[i].className.includes("duplicado")){
+            todosBilletes[i].remove();
+        }
+    }
+}
+
+function getRespuestaCorrecta(){
+    var correcta;
+    for(i = 0; i < arrayRespuestas.length; i++){
+        var comprobacion = arrayRespuestas[i][1].toLowerCase();
+        if(comprobacion.includes("correcta")){
+            correcta = document.getElementById("trampilla" + (i+1));
+        }
+    }
+    return correcta;
+}
 function getRespuestasIncorrectas(){
     var salida = new Array();
     for(i = 0; i < arrayRespuestas.length; i++){
@@ -475,7 +553,7 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= 8 && presupuesto > -1){
+    if(ronda <= MAX_RONDAS && presupuestoActual > 0){
         setTimeout(function(){
             ronda++;
             resetAnimaciones();
@@ -499,9 +577,9 @@ function resetAnimaciones(){
     var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
     for(i = 0; i < divRespuestas.length; i++){
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
-        animar(txtRespuesta, "reverse", 0);
+        cambiarOpacity(txtRespuesta, "reverse", 0);
     }
-    animar(document.getElementById("pregunta-txt"), "reverse", 0);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "reverse", 0);
 }
 
 function gameOver(){
