@@ -332,9 +332,13 @@ function eliminarBilletes(billete){
     }else{
         todosBilletesDuplicados = document.getElementsByClassName("duplicadoAll");
     }
+    ocultarMesa();
+    eliminarDuplicados(todosBilletesDuplicados);
+}
+
+function ocultarMesa(){
     document.getElementById("billete5").style.display = "none";
     document.getElementById("billeteAll").style.display = "none";
-    eliminarDuplicados(todosBilletesDuplicados);
 }
 
 function eliminarDuplicados(billetes){
@@ -470,9 +474,9 @@ function arrancarContador(){
             document.getElementById("contador").textContent = tiempo;
             tiempo--;
             if(tiempo < 0){
-                // alert("!Te has quedado sin tiempo!");
                 clearInterval(intervalo);
                 comprobarRespuesta();
+                ocultarMesa();
             }
         }, 1000);
     }, delay);
@@ -488,12 +492,11 @@ function comprobarRespuesta(){
 }
 
 function contarDineroCorrecto(trampilla){
-    console.log(trampilla);
     var dineroCorrecto = trampilla.children;
     for (let i = 0; i < dineroCorrecto.length; i++) {
         if(dineroCorrecto[i].className.includes("duplicado")){
             setPresupuesto(dineroCorrecto[i]);
-        }else{
+        }else if(!dineroCorrecto[i].className == "eliminarBillete"){
             presupuestoActual = 0;
         }
     }
@@ -553,16 +556,16 @@ function animarTrampilla(trampillas, direccion, delay){
 
 // cambiamos de ronda, actualizamos el juego
 function update(){
-    if(ronda <= MAX_RONDAS && presupuestoActual > 0){
-        setTimeout(function(){
+    setTimeout(function(){
+        if(ronda <= MAX_RONDAS && presupuestoActual > 0){
             ronda++;
             resetAnimaciones();
             resetearMesa();
             jugar();
-        }, (delayTrampilla + 3000));
-    }else{
-        gameOver();
-    }
+        }else{
+            gameOver();
+        }
+    }, (delayTrampilla + 3000));
 }
 
 function resetearMesa(){
