@@ -332,9 +332,13 @@ function eliminarBilletes(billete){
     }else{
         todosBilletesDuplicados = document.getElementsByClassName("duplicadoAll");
     }
+    ocultarMesa();
+    eliminarDuplicados(todosBilletesDuplicados);
+}
+
+function ocultarMesa(){
     document.getElementById("billete5").style.display = "none";
     document.getElementById("billeteAll").style.display = "none";
-    eliminarDuplicados(todosBilletesDuplicados);
 }
 
 function eliminarDuplicados(billetes){
@@ -437,10 +441,10 @@ function imprimir(arrayDificultad){
         respuesta = respuesta.split(".");
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
         txtRespuesta.textContent = respuesta[0];
-        cambiarOpacity(txtRespuesta, "normal", delay);
+        cambiarOpacity(txtRespuesta, "normal", delay, 1000);
         guardar(respuesta, arrayRespuestas);
     }
-    cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay, 1000);
 }
 
 function guardar(elemento, array){
@@ -448,14 +452,13 @@ function guardar(elemento, array){
 }
 
 //animación que hace que se desvelen las preguntas y las respuestas una a una
-function cambiarOpacity(elemento, direccion, delayAnimacion ) {
-    
+function cambiarOpacity(elemento, direccion, delayAnimacion, diferencia) {
     elemento.animate([
         { opacity: 0 },
         { opacity: 1 }
     ], { duration: 1000, fill: "both", delay: delayAnimacion, direction: direccion});
     if(delayAnimacion != 0){
-        delayAnimacion += 1000;
+        delayAnimacion += diferencia;
         delay = delayAnimacion;
     }
   }
@@ -470,9 +473,9 @@ function arrancarContador(){
             document.getElementById("contador").textContent = tiempo;
             tiempo--;
             if(tiempo < 0){
-                // alert("!Te has quedado sin tiempo!");
                 clearInterval(intervalo);
                 comprobarRespuesta();
+                ocultarMesa();
             }
         }, 1000);
     }, delay);
@@ -483,19 +486,17 @@ function comprobarRespuesta(){
     animarTrampilla(respuestasIncorrectas, "normal", delayTrampilla);
     var trampillaCorrecta = getRespuestaCorrecta();
     contarDineroCorrecto(trampillaCorrecta);
-    quitarDineroTrampilla();
     update();
 }
 
 function contarDineroCorrecto(trampilla){
-    console.log(trampilla);
     var dineroCorrecto = trampilla.children;
-    for (let i = 0; i < dineroCorrecto.length; i++) {
-        if(dineroCorrecto[i].className.includes("duplicado")){
+    if(dineroCorrecto[1]){
+        for (let i = 1; i < dineroCorrecto.length; i++) {
             setPresupuesto(dineroCorrecto[i]);
-        }else{
-            presupuestoActual = 0;
         }
+    }else{
+        presupuestoActual = 0;
     }
 }
 
@@ -503,6 +504,9 @@ function setPresupuesto(billete){
     if(billete.className == "duplicado5"){
         contadorPresupuesto += 5;
         presupuestoActual = contadorPresupuesto;
+    }else{
+        console.log(presupuestoActual);
+        presupuestoActual = presupuestoActual;
     }
 }
 
@@ -540,14 +544,18 @@ function getRespuestasIncorrectas(){
 function animarTrampilla(trampillas, direccion, delay){
     for(i = 0; i < trampillas.length; i++){
         var caja = document.getElementById("trampilla" + (trampillas[i] + 1));
-        animacionTrampilla = caja.animate([
-        {backgroundColor: "#EEFFFE"},
-        {backgroundColor: "rgb(104, 103, 102)"}
-    ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
-    if(delay != 0){
-        delay += 2000;
-        delayTrampilla = delay;
-    }
+        caja.animate([
+            {backgroundColor: "#EEFFFE"},
+            {backgroundColor: "rgb(104, 103, 102)"}
+        ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
+        var hijos = caja.children;
+        for(let j = 0; j < hijos.length; j++){
+            cambiarOpacity(hijos[j], "reverse", delay, 2000);
+        }
+        if(delay != 0){
+            delay += 2000;
+            delayTrampilla = delay;
+        }
     }
 }
 
@@ -559,6 +567,7 @@ function update(){
             resetAnimaciones();
             resetearMesa();
             jugar();
+            quitarDineroTrampilla();
         }else{
             gameOver();
         }
@@ -577,9 +586,16 @@ function resetAnimaciones(){
     var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
     for(i = 0; i < divRespuestas.length; i++){
         var txtRespuesta = document.getElementById("respuesta" + (i+1));
-        cambiarOpacity(txtRespuesta, "reverse", 0);
+        cambiarOpacity(txtRespuesta, "reverse", 0, 0);
     }
-    cambiarOpacity(document.getElementById("pregunta-txt"), "reverse", 0);
+    cambiarOpacity(document.getElementById("pregunta-txt"), "reverse", 0, false);
+    for(i = 0; i < respuestasIncorrectas.length; i++){
+        var caja = document.getElementById("trampilla" + (respuestasIncorrectas[i] + 1));
+        var hijos = caja.children;
+        for(let j = 0; j < hijos.length; j++){
+            cambiarOpacity(hijos[j], "normal", 0, 0);
+        }
+    }
 }
 
 function gameOver(){
