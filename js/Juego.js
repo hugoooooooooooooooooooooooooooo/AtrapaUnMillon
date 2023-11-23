@@ -73,7 +73,7 @@ const dificultadMedia = [
             0: "1940.",
             1: "En 1939. (Respuesta Correcta)",
             2: "1935.",
-            3: "1945"
+            3: "1945."
         }
     },
     {
@@ -113,7 +113,7 @@ const dificultadDificil = [
             0: "En 1989. (Respuesta Correcta)",
             1: "En 1979.",
             2: "En 1985.",
-            3: "En 1991"
+            3: "En 1991."
         }
     },
     {
@@ -149,7 +149,7 @@ const dificultadDificil = [
             0: "El beso. (Respuesta Correcta)",
             1: "El Árbol de la Vida.",
             2: "Retrato de Adele Bloch-Bauer.",
-            3: "La Dama Dorada"
+            3: "La Dama Dorada."
         }
     },
     {
@@ -311,11 +311,13 @@ function drop(ev) {
     var data = ev.dataTransfer.getData("text");
     var billeteDuplicado = document.getElementById(data).cloneNode(true);
     billeteDuplicado.removeAttribute("id");
+    billeteDuplicado.removeAttribute("draggable");
+    billeteDuplicado.removeAttribute("ondragstart");
     if(data == "billeteAll"){
         ev.target.appendChild(billeteDuplicado);
         billeteDuplicado.className = "duplicadoAll";
-    }else if (data == "billete5"){
-        billeteDuplicado.className = "duplicado5";
+    }else if (data == "billete10"){
+        billeteDuplicado.className = "duplicado10";
         ev.target.appendChild(billeteDuplicado);
     }
     actualizarDinero(billeteDuplicado, "resta");
@@ -328,7 +330,7 @@ function drop(ev) {
 function eliminarBilletes(billete){
     var todosBilletesDuplicados;
     if(billete.className == "duplicadoAll"){
-        todosBilletesDuplicados = document.getElementsByClassName("duplicado5");
+        todosBilletesDuplicados = document.getElementsByClassName("duplicado10");
     }else{
         todosBilletesDuplicados = document.getElementsByClassName("duplicadoAll");
     }
@@ -337,7 +339,7 @@ function eliminarBilletes(billete){
 }
 
 function ocultarMesa(){
-    document.getElementById("billete5").style.display = "none";
+    document.getElementById("billete10").style.display = "none";
     document.getElementById("billeteAll").style.display = "none";
 }
 
@@ -353,13 +355,13 @@ function actualizarDinero(billete, operacion){
         if(billete.className == "duplicadoAll"){
             presupuesto = 0;
         }else{
-            presupuesto-= 5;
+            presupuesto-= 10;
         }
     }else{
         if(billete.className == "duplicadoAll"){
-            presupuesto = presupuestoInicial;
+            presupuesto = presupuestoActual;
         }else{
-            presupuesto += 5;
+            presupuesto += 10;
         }
     }
     imprimirDinero();
@@ -470,10 +472,18 @@ function eliminar(elemento){
 function arrancarContador(){
     setTimeout(function(){
         const intervalo = setInterval(() =>{
-            document.getElementById("contador").textContent = tiempo;
+            var contador = document.getElementById("contador");
+            var pregunta = document.getElementById("pregunta");
+            crearContador();
             tiempo--;
+            if(contador.className == "" && pregunta.className == "pregunta-stop"){
+                contador.className = "contador-play";
+                pregunta.className = "pregunta-play";
+            }
             if(tiempo < 0){
                 clearInterval(intervalo);
+                contador.className = "";
+                pregunta.className = "pregunta-stop";
                 comprobarRespuesta();
                 ocultarMesa();
             }
@@ -501,8 +511,8 @@ function contarDineroCorrecto(trampilla){
 }
 
 function setPresupuesto(billete){
-    if(billete.className == "duplicado5"){
-        contadorPresupuesto += 5;
+    if(billete.className == "duplicado10"){
+        contadorPresupuesto += 10;
         presupuestoActual = contadorPresupuesto;
     }else{
         console.log(presupuestoActual);
@@ -532,8 +542,12 @@ function getRespuestaCorrecta(){
 function getRespuestasIncorrectas(){
     var salida = new Array();
     for(i = 0; i < arrayRespuestas.length; i++){
-        var comprobacion = arrayRespuestas[i][1].toLowerCase();
-        if(!comprobacion.includes("correcta")){
+        if(arrayRespuestas[i][1]){
+            var comprobacion = arrayRespuestas[i][1].toLowerCase();
+            if(!comprobacion.includes("correcta")){
+                salida.push(i);
+            }
+        }else{
             salida.push(i);
         }
     }
@@ -562,7 +576,7 @@ function animarTrampilla(trampillas, direccion, delay){
 // cambiamos de ronda, actualizamos el juego
 function update(){
     setTimeout(function(){
-        if(ronda <= MAX_RONDAS && presupuestoActual > 0){
+        if(ronda < MAX_RONDAS && presupuestoActual > 0){
             ronda++;
             resetAnimaciones();
             resetearMesa();
@@ -575,7 +589,7 @@ function update(){
 }
 
 function resetearMesa(){
-    document.getElementById("billete5").style.display = "inline";
+    document.getElementById("billete10").style.display = "inline";
     document.getElementById("billeteAll").style.display = "inline";
 }
 
