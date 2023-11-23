@@ -1,40 +1,34 @@
 window.addEventListener("load", mostrarTodo);
 
-var jugadores = [];
-
 function mostrarTodo() {
-    var dineroActual = localStorage.getItem("dinero");
-    var nombreActual = localStorage.getItem("nombre");
-    var dificultadActual = localStorage.getItem("dificultad");
+    var jugadoresGuardados = localStorage.getItem("jugadores");
+    var jugadores = JSON.parse(jugadoresGuardados);
+    var ranking = document.getElementById("ranking");
 
-    if (dineroActual > 0) {
-        document.getElementById("resultado").textContent = `¡¡¡Enhorabuena!!!, te has llevado ${dineroActual}`;
-    } else {
-        document.getElementById("resultado").textContent = '¡¡¡Lo siento!!!, has perdido';
+    if(jugadores[jugadores.length -1].dinero > 0){
+        document.getElementById("resultado").textContent = "¡¡Enhorabuena has ganado!!, te llevas " + jugadores[jugadores.length -1].dinero + " mil euros.";
+    }else{
+        document.getElementById("resultado").textContent = "Vaya.., has perdido. ¡Intentalo de nuevo!";
     }
 
-    var jugadorActual = {
-        "nombre": nombreActual,
-        "dificultad": dificultadActual,
-        "dinero": dineroActual
-    };
+    if(jugadores.length > 0){
+        jugadores.sort(function(a, b) {
+            if (b.dinero - a.dinero !== 0) {
+                return b.dinero - a.dinero;
+            }
+        });
 
-
-    jugadores.push(jugadorActual);
-
-    mostrarRanking();
-}
-
-function mostrarRanking() {
-    var rankingElement = document.getElementById("ranking");
-    rankingElement.textContent = ''; 
-
-    for (var i = 0; i < jugadores.length; i++) {
-        var jugador = jugadores[i];
-
-        var cadaJugador = document.createElement('li');
-        cadaJugador.textContent = `Nombre: ${jugador.nombre}, Dificultad: ${jugador.dificultad}, Dinero: ${jugador.dinero}`;
-
-        rankingElement.appendChild(cadaJugador);
+        for(var i = 0; i < jugadores.length;i++){
+            var jugador = jugadores[i];
+            var jugadorElement = document.createElement("div");
+            jugadorElement.textContent = `Nombre: ${jugador.nombre}, Dificultad: ${jugador.dificultad}, Dinero: ${jugador.dinero}K`;
+            ranking.appendChild(jugadorElement);
+        }
+    }else{
+        console.log("No hay jugadores");
     }
-}
+
+    document.getElementById("volverJugar").addEventListener("click",()=>{
+        window.location.href = "../html/Inicio.html";
+    });
+};

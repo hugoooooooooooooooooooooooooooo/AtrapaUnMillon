@@ -44,7 +44,7 @@ input, select {
     font-size: 16px;
     border: 1px solid #ccc;
     border-radius: 5px;
-    width: 200px;
+    width: 300px;
     margin-bottom: 15px;
 }
 
@@ -60,6 +60,8 @@ input[type="button"]:hover {
 }
 
 #error{
-    color: red;
+    color: white;
     visibility:hidden ;
+    padding: 3px;
+    background-color: red;
 }

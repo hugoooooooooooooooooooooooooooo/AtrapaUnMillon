@@ -217,7 +217,6 @@ function rellenarDatos(nombre, dificultad){
     var info = document.getElementById("info");
     var nombreTxt = document.createElement("p");
     var dificultadTxt = document.createElement("p");
-    var dineroTxt = document.createElement("p");
     nombreTxt.textContent = "Nombre: " + nombre;
     dificultadTxt.textContent = "Dificultad: " + dificultad;
     info.appendChild(nombreTxt);
@@ -277,7 +276,7 @@ function jugar(){
 }
 //creamos una función para mostrar la ronda en la que nos hayamos
 function imprimirRondas(){
-    var padre = iv = document.createElement("div");
+    var padre = document.createElement("div");
     padre.id = "rondas";
     var siguiente = document.getElementById("pregunta").firstChild;
     document.getElementById("pregunta").insertBefore(padre, siguiente);
@@ -613,5 +612,13 @@ function resetAnimaciones(){
 }
 
 function gameOver(){
-    window.location.href = "../html/inicio.html";
+    var jugadoresGuardados = localStorage.getItem("jugadores");
+    if (jugadoresGuardados) {
+        var jugadores = JSON.parse(jugadoresGuardados);
+    }else{
+        var jugadores = [];
+    }
+    jugadores.push({"nombre":nombre, "dificultad":dificultad, "dinero":presupuestoActual});
+    localStorage.setItem("jugadores", JSON.stringify(jugadores));
+    window.location.href = "../html/Resultado.html";
 }
