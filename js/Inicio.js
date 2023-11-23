@@ -8,7 +8,7 @@ boton.addEventListener("click", ()=>{
     localStorage.setItem('dificultad', dificultad);
 
     if(!nombre || !dificultad){
-        alert("Es obligatorio seleccionar un nombre y una dificultad");
+        document.getElementById("error").style.visibility = "visible";
     }else{
         window.location.href = '../html/Juego.html';
     }

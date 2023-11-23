@@ -58,3 +58,8 @@ input[type="button"] {
 input[type="button"]:hover {
     background-color: red;
 }
+
+#error{
+    color: red;
+    visibility:hidden ;
+}
