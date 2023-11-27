@@ -8,8 +8,17 @@ boton.addEventListener("click", ()=>{
     localStorage.setItem('dificultad', dificultad);
 
     if(!nombre || !dificultad){
-        alert("Es obligatorio seleccionar un nombre y una dificultad");
+        mostrarError();
     }else{
         window.location.href = '../html/Juego.html';
     }
 })
+
+function mostrarError(){
+    if(document.getElementById("error") == undefined){
+        var p = document.createElement("p");
+        p.id = "error";
+        p.innerText = "Debes introducir un nombre de equipo";
+        document.querySelector("form").insertBefore(p,document.querySelector("label"));
+    }
+}

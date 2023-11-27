@@ -217,7 +217,6 @@ function rellenarDatos(nombre, dificultad){
     var info = document.getElementById("info");
     var nombreTxt = document.createElement("p");
     var dificultadTxt = document.createElement("p");
-    var dineroTxt = document.createElement("p");
     nombreTxt.textContent = "Nombre: " + nombre;
     dificultadTxt.textContent = "Dificultad: " + dificultad;
     info.appendChild(nombreTxt);
@@ -277,7 +276,7 @@ function jugar(){
 }
 //creamos una función para mostrar la ronda en la que nos hayamos
 function imprimirRondas(){
-    var padre = iv = document.createElement("div");
+    var padre = document.createElement("div");
     padre.id = "rondas";
     var siguiente = document.getElementById("pregunta").firstChild;
     document.getElementById("pregunta").insertBefore(padre, siguiente);
@@ -432,10 +431,7 @@ function imprimir(arrayDificultad){
     if(arrayDificultad != getArrayDificultad(ronda - 1, dificultad)){
         numsPregunta = new Set();
     }
-    do{
-        var random = Math.floor(Math.random() * arrayDificultad.length);
-    } while(numsPregunta.has(random));
-    numsPregunta.add(random);
+    var random = generarRandom(numsPregunta, arrayDificultad.length);
     document.getElementById("pregunta-txt").textContent = arrayDificultad[random].pregunta;
     var divRespuestas = document.getElementById("pantallaRespuestas").querySelectorAll("div");
     for(i = 0; i < divRespuestas.length; i++){
@@ -447,6 +443,14 @@ function imprimir(arrayDificultad){
         guardar(respuesta, arrayRespuestas);
     }
     cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay, 1000);
+}
+
+function generarRandom(set, maximo){
+    do{
+        var random = Math.floor(Math.random() * maximo);
+    } while(set.has(random));
+    set.add(random);
+    return random;
 }
 
 function guardar(elemento, array){
@@ -556,8 +560,11 @@ function getRespuestasIncorrectas(){
 
 //función para animar las trampillas
 function animarTrampilla(trampillas, direccion, delay){
+    var set = new Set();
     for(i = 0; i < trampillas.length; i++){
-        var caja = document.getElementById("trampilla" + (trampillas[i] + 1));
+        var numTrampilla = trampillas[generarRandom(set, trampillas.length)];
+        var caja = document.getElementById("trampilla" + (numTrampilla + 1));
+        console.log(caja);
         caja.animate([
             {backgroundColor: "#EEFFFE"},
             {backgroundColor: "rgb(104, 103, 102)"}
@@ -613,5 +620,13 @@ function resetAnimaciones(){
 }
 
 function gameOver(){
-    window.location.href = "../html/inicio.html";
+    var jugadoresGuardados = localStorage.getItem("jugadores");
+    if (jugadoresGuardados) {
+        var jugadores = JSON.parse(jugadoresGuardados);
+    }else{
+        var jugadores = [];
+    }
+    jugadores.push({"nombre":nombre, "dificultad":dificultad, "dinero":presupuestoActual});
+    localStorage.setItem("jugadores", JSON.stringify(jugadores));
+    window.location.href = "../html/Resultado.html";
 }
