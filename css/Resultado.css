@@ -17,17 +17,43 @@ h1 {
     margin-bottom: 20px;
 }
 
-.contenedorRanking {
+.rankings {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
+    justify-content: space-around;
     background-color: #ffeeba;
     border: 1px solid #ddd;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 400px;
+    width: 95%;
+    height: 95%;
     margin: 20px;
     text-align: center;
+}
+
+.facil{
+    background-color: lightgreen;
+}
+.media{
+    background-color: orange;
+}
+.dificil{
+    background-color: firebrick;
+}
+
+.facil, .media, .dificil{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 8px;
+    height: 90%;
+    width: 90%;
+}
+li{
+    margin: 3px;
 }
 
 h2 {
@@ -35,25 +61,6 @@ h2 {
     font-size: 2em;
     margin-bottom: 15px;
 }
-
-ol {
-    list-style-type: none;
-    padding: 0;
-}
-
-li {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    padding: 15px;
-    border-radius: 8px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 90%;
-    width: 90%;
-}
-
 button {
     background-color: yellow;
     color: white;
@@ -62,7 +69,7 @@ button {
     border: none;
     border-radius: 8px;
     cursor: pointer;
-    margin-top: 20px;
+    margin: 20px;
     transition: background-color 0.3s ease;
 }
 
