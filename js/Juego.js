@@ -1,213 +1,3 @@
-// Mezclar las respuestas para cada nivel de dificultad
-const dificultadFacil = [
-    {
-        pregunta: "¿En qué fecha llegó Cristóbal Colón a América?",
-        respuestas: {
-            0: "8 de Octubre 1492.",
-            1: "12 Octubre 1492. (Respuesta Correcta)",
-            2: "12 de Noviembre de 1513.",
-            3: "8 de Octubre de 1942."
-        }
-    },
-    {
-        pregunta: "¿De qué colores es la bandera de México?",
-        respuestas: {
-            0: "Azul, blanco, verde.",
-            1: "Rojo, blanco, Azul.",
-            2: "Verde, blanco y rojo. (Respuesta Correcta)",
-            3: "Naranja, Verde, Blanco."
-        }
-    },
-    {
-        pregunta: "¿Quién escribió Hamlet?",
-        respuestas: {
-            0: "William Shakespeare. (Respuesta Correcta)",
-            1: "Jane Austen.",
-            2: "Charles Dickens.",
-            3: "Edgar Allan Poe."
-        }
-    },
-    {
-        pregunta: "¿Quién es el fundador de Facebook?",
-        respuestas: {
-            0: "Steve Jobs.",
-            1: "Elon Musk.",
-            2: "Mark Zuckerberg.(Respuesta Correcta)",
-            3: "Bill Gates."
-        }
-    },
-    {
-        pregunta: "¿Quién enunció el mito de la caverna?",
-        respuestas: {
-            0: "Confucio.",
-            1: "Sócrates.",
-            2: "Platón. (Respuesta Correcta)",
-            3: "Aristóteles."
-        }
-    }
-];
-
-// Arrays asociativos para preguntas de dificultad media
-const dificultadMedia = [
-    {
-        pregunta: "¿Cuál es la flor nacional de Japón?",
-        respuestas: {
-            0: "El cerezo. (Respuesta Correcta)",
-            1: "Lirio.",
-            2: "Orquídea.",
-            3: "Tulipán."
-        }
-    },
-    {
-        pregunta: "¿Cuántos años duró la Primera Guerra Mundial?",
-        respuestas: {
-            0: "10 años.",
-            1: "8 años.",
-            2: "6 años.",
-            3: "4 años. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿En qué año comenzó la II Guerra Mundial?",
-        respuestas: {
-            0: "1940.",
-            1: "En 1939. (Respuesta Correcta)",
-            2: "1935.",
-            3: "1945."
-        }
-    },
-    {
-        pregunta: "¿Quién escribió La Odisea?",
-        respuestas: {
-            0: "Esquilo.",
-            1: "Virgilio.",
-            2: "Homero. (Respuesta Correcta)",
-            3: "Ovidio."
-        }
-    },
-    {
-        pregunta: "¿Cuál fue el primer metal que usó el hombre?",
-        respuestas: {
-            0: "Plata.",
-            1: "Piedra.",
-            2: "El cobre. (Respuesta Correcta)",
-            3: "Hierro."
-        }
-    }
-];
-
-// Arrays asociativos para preguntas de dificultad difícil
-const dificultadDificil = [
-    {
-        pregunta: "¿Qué río atraviesa la ciudad de Benarés?",
-        respuestas: {
-            0: "El Río Nilo.",
-            1: "El Río Yangtsé.",
-            2: "El Río Amazonas.",
-            3: "El Río Ganges. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿En qué año cayó el muro de Berlín?",
-        respuestas: {
-            0: "En 1989. (Respuesta Correcta)",
-            1: "En 1979.",
-            2: "En 1985.",
-            3: "En 1991."
-        }
-    },
-    {
-        pregunta: "¿Quién descubrió la penicilina?",
-        respuestas: {
-            0: "Marie Curie.",
-            1: "Robert Koch.",
-            2: "Louis Pasteur.",
-            3: "Alexander Fleming. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿Cuánto duró la guerra de los 100 años?",
-        respuestas: {
-            0: "99 años.",
-            1: "97 años.",
-            2: "116 años. (Respuesta Correcta)",
-            3: "100 años."
-        }
-    },
-    {
-        pregunta: "¿Con qué nombre se conoce el escándalo que obligó al presidente estadounidense Richard Nixon a dimitir?",
-        respuestas: {
-            0: "Disaster of Nixon.",
-            1: "La catástrofe.",
-            2: "El crack del 29.",
-            3: "Watergate. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿Cómo se llama el cuadro más famoso de Gustav Klimt?",
-        respuestas: {
-            0: "El beso. (Respuesta Correcta)",
-            1: "El Árbol de la Vida.",
-            2: "Retrato de Adele Bloch-Bauer.",
-            3: "La Dama Dorada."
-        }
-    },
-    {
-        pregunta: "¿Cuál es el récord mundial de Usain Bolt en 100 metros lisos?",
-        respuestas: {
-            0: "9,75 segundos.",
-            1: "9,58 segundos. (Respuesta Correcta)",   
-            2: "9,95 segundos.",
-            3: "9,45 segundos.",
-        }
-    },
-    {
-        pregunta: "¿Cúal es la capital de Nicaragua?",
-        respuestas: {
-            0: "Nicaragua.",
-            1: "Tegucigalpa.",
-            2: "San Salvador.",
-            3: "Managua. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿Dónde nació Vicent Van Gogh?",
-        respuestas: {
-            0: "Zundert. (Respuesta Correcta)",
-            1: "Groninga.",
-            2: "Ámsterdam.",
-            3: "Utrecht."
-        }
-    },
-    {
-        pregunta: "¿Cuándo comenzó la edad contemporánea?",
-        respuestas: {
-            0: "En 1800.",
-            1: "En 1750.",
-            2: "En 1825.",
-            3: "En 1789. (Respuesta Correcta)"
-        }
-    },
-    {
-        pregunta: "¿Qué territorio se independizó de serbia en 2008 sin que se haya aún reconocido dicha independencia por la totalidad de países?",
-        respuestas: {
-            0: "Montenegro.",
-            1: "Kosovo. (Respuesta Correcta)",
-            2: "Macedonia del Norte.",
-            3: "Bosnia y Herzegovina."
-        }
-    },
-    {
-        pregunta: "¿En qué año comenzó el segundo reich en Alemania?",
-        respuestas: {
-            0: "En 1900.",
-            1: "En 1850.",
-            2: "En 1920.",
-            3: "En 1871. (Respuesta Correcta)"
-        }
-    }
-];
-
 // guardamos y leemos los localStorages
 var nombre = localStorage.getItem('nombre');
 var dificultad = localStorage.getItem('dificultad');
@@ -519,7 +309,6 @@ function setPresupuesto(billete){
         contadorPresupuesto += 10;
         presupuestoActual = contadorPresupuesto;
     }else{
-        console.log(presupuestoActual);
         presupuestoActual = presupuestoActual;
     }
 }
@@ -536,9 +325,11 @@ function quitarDineroTrampilla(){
 function getRespuestaCorrecta(){
     var correcta;
     for(i = 0; i < arrayRespuestas.length; i++){
-        var comprobacion = arrayRespuestas[i][1].toLowerCase();
-        if(comprobacion.includes("correcta")){
-            correcta = document.getElementById("trampilla" + (i+1));
+        if(arrayRespuestas[i][1]){
+            var comprobacion = arrayRespuestas[i][1].toLowerCase();
+            if(comprobacion.includes("correcta")){
+                correcta = document.getElementById("trampilla" + (i+1));
+            }
         }
     }
     return correcta;
@@ -564,7 +355,6 @@ function animarTrampilla(trampillas, direccion, delay){
     for(i = 0; i < trampillas.length; i++){
         var numTrampilla = trampillas[generarRandom(set, trampillas.length)];
         var caja = document.getElementById("trampilla" + (numTrampilla + 1));
-        console.log(caja);
         caja.animate([
             {backgroundColor: "#EEFFFE"},
             {backgroundColor: "rgb(104, 103, 102)"}
