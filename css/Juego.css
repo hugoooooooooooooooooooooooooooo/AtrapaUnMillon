@@ -244,3 +244,17 @@ img{
     }
 }
 
+#controles{
+    display: flex;
+    margin: auto;
+}
+
+#controles img{
+    width: 15px;
+    height: 15px;
+}
+
+#controles button{
+    margin: 2px;
+}
+

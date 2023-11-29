@@ -434,3 +434,21 @@ function gameOver(){
     localStorage.setItem("jugadores", JSON.stringify(jugadores));
     window.location.href = "../html/Resultado.html";
 }
+
+function volumenMenos(){
+        musicaFondo.volume -= 0.2;
+}
+
+function volumenMas(){
+    musicaFondo.volume += 0.2;
+}
+
+function playPause(){
+    if(musicaFondo.muted){
+        musicaFondo.muted = false;
+        document.getElementById("playPause").firstElementChild.src = "../icons/mute.svg";
+    }else{
+        musicaFondo.muted = true;
+        document.getElementById("playPause").firstElementChild.src = "../icons/noMute.svg";
+    }
+}
