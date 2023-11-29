@@ -309,7 +309,6 @@ function setPresupuesto(billete){
         contadorPresupuesto += 10;
         presupuestoActual = contadorPresupuesto;
     }else{
-        console.log(presupuestoActual);
         presupuestoActual = presupuestoActual;
     }
 }
@@ -327,9 +326,9 @@ function getRespuestaCorrecta(){
     var correcta;
     for(i = 0; i < arrayRespuestas.length; i++){
         if(arrayRespuestas[i][1]){
-        var comprobacion = arrayRespuestas[i][1].toLowerCase();
-        if(comprobacion.includes("correcta")){
-            correcta = document.getElementById("trampilla" + (i+1));
+            var comprobacion = arrayRespuestas[i][1].toLowerCase();
+            if(comprobacion.includes("correcta")){
+                correcta = document.getElementById("trampilla" + (i+1));
             }
         }
     }
@@ -356,11 +355,11 @@ function animarTrampilla(trampillas, direccion, delay){
     for(i = 0; i < trampillas.length; i++){
         var numTrampilla = trampillas[generarRandom(set, trampillas.length)];
         var caja = document.getElementById("trampilla" + (numTrampilla + 1));
-        console.log(caja);
         caja.animate([
             {backgroundColor: "#EEFFFE"},
             {backgroundColor: "rgb(104, 103, 102)"}
         ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
+        reproducirSonido("../sonido/trampilla.wav");
         var hijos = caja.children;
         for(let j = 0; j < hijos.length; j++){
             cambiarOpacity(hijos[j], "reverse", delay, 2000);
@@ -409,6 +408,11 @@ function resetAnimaciones(){
             cambiarOpacity(hijos[j], "normal", 0, 0);
         }
     }
+}
+
+function reproducirSonido(src){
+    var audio = new Audio(src);
+    audio.play();
 }
 
 function gameOver(){
