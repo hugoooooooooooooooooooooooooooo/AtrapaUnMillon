@@ -149,7 +149,6 @@ body{
     justify-content: space-between;
     margin: 0px auto;
     margin-top: 0px;
-    flex-wrap: wrap;
     width: 90%;
 }
 .respuesta{
@@ -235,26 +234,27 @@ img{
     margin: 5px;
 }
 
-#mesa div h3{
-    color: white;
-    margin-top: 0px;
-    font-weight: bold
-}
-
-@media (max-width: 769px){
+@media (max-width: 769px) or (max-width: 1025px){
     #pantallaRespuestas .respuesta{
         width: 30%;
         margin-bottom: 5%;
     }
-}
-
-@media (max-width: 426px){
-    #contenido {
-        transform: rotate(90deg);
-        width: 100vh;
-        height: 100vw;
-        grid-template-areas: "mesa respuestas pregunta info"
-                         "mesa respuestas pregunta info"
-                         "mesa respuestas pregunta contador";
+    #respuestas{
+        flex-wrap: wrap;
     }
 }
+
+#controles{
+    display: flex;
+    margin: auto;
+}
+
+#controles img{
+    width: 15px;
+    height: 15px;
+}
+
+#controles button{
+    margin: 2px;
+}
+

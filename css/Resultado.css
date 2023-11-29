@@ -77,10 +77,10 @@ button:hover {
     background-color: dodgerblue;
 }
 
-@media (max-width: 320px) or (max-width: 426px){
+@media (max-width: 769px){
     .rankings{
         flex-direction: column;
+        width: 90%;
+        height: 90%;
     }
-
-
 }

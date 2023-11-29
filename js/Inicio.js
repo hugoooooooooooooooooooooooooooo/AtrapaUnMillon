@@ -22,3 +22,12 @@ function mostrarError(){
         document.querySelector("form").insertBefore(p,document.querySelector("label"));
     }
 }
+
+window.addEventListener("load", iniciar);
+
+function iniciar(){
+    var random = Math.floor((Math.random() * 3)+ 1);
+    var src = "../sonido/MusicaFondoInicio" + random + ".mp3";
+    var audio = new Audio(src);
+    audio.play();
+}
