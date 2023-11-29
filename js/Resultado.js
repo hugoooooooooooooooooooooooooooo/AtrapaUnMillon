@@ -10,8 +10,10 @@ function mostrarTodo() {
     //Da la enhorabuena si te has llevado algo de dinero, si no te dice que has perdido
     if(jugadores[jugadores.length -1].dinero > 0){
         document.getElementById("resultado").textContent = "¡¡Enhorabuena has ganado!!, te llevas " + jugadores[jugadores.length -1].dinero + " mil euros.";
+        new Audio("../sonido/victoria.mp3").play();
     }else{
         document.getElementById("resultado").textContent = "Vaya.., has perdido. ¡Intentalo de nuevo!";
+        new Audio("../sonido/derrota.wav").play();
     }
 
     //si hay jugadores muestra el ranking    

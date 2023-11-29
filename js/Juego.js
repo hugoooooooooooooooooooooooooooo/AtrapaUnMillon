@@ -47,9 +47,11 @@ var numsPregunta = new Set();
 const presupuestoInicial = 200;
 var presupuesto;
 var presupuestoActual = presupuestoInicial;
-
 // inicializamos la ronda a 1, esta se irá aumentando hasta 8
 var ronda = 1;
+
+//variable con la musica de fondo
+var musicaFondo = new Audio("../sonido/MusicaFondoJuego.mp3");
 //variable que nos ayuda a ir contando los billetes que hay en la trampilla correcta
 var contadorPresupuesto;
 window.addEventListener("load", jugar);
@@ -63,6 +65,7 @@ function jugar(){
     imprimirPreguntas(dificultad);
     crearContador();
     arrancarContador();
+    reproducirSonido(musicaFondo, true);
 }
 //creamos una función para mostrar la ronda en la que nos hayamos
 function imprimirRondas(){
@@ -280,6 +283,8 @@ function arrancarContador(){
                 pregunta.className = "pregunta-stop";
                 comprobarRespuesta();
                 ocultarMesa();
+                pararSonido(musicaFondo, true);
+                reproducirSonido(new Audio("../sonido/tiempo.wav"), false);
             }
         }, 1000);
     }, delay);
@@ -359,7 +364,6 @@ function animarTrampilla(trampillas, direccion, delay){
             {backgroundColor: "#EEFFFE"},
             {backgroundColor: "rgb(104, 103, 102)"}
         ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
-        reproducirSonido("../sonido/trampilla.wav");
         var hijos = caja.children;
         for(let j = 0; j < hijos.length; j++){
             cambiarOpacity(hijos[j], "reverse", delay, 2000);
@@ -410,9 +414,13 @@ function resetAnimaciones(){
     }
 }
 
-function reproducirSonido(src){
-    var audio = new Audio(src);
+function reproducirSonido(audio, loop){
+    audio.loop = loop;
     audio.play();
+}
+
+function pararSonido(audio){
+    audio.pause();
 }
 
 function gameOver(){

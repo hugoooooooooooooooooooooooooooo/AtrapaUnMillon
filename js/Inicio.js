@@ -27,7 +27,7 @@ window.addEventListener("load", iniciar);
 
 function iniciar(){
     var random = Math.floor((Math.random() * 3)+ 1);
-    var src = "../sonido/MusicaFondo" + random + ".mp3";
+    var src = "../sonido/MusicaFondoInicio" + random + ".mp3";
     var audio = new Audio(src);
     audio.play();
 }
