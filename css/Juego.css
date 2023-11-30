@@ -234,7 +234,7 @@ img{
     margin: 5px;
 }
 
-@media (max-width: 769px){
+@media (max-width: 769px) or (max-width: 1025px){
     #pantallaRespuestas .respuesta{
         width: 30%;
         margin-bottom: 5%;

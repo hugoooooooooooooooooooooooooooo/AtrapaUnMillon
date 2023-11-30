@@ -22,15 +22,21 @@ function mostrarTodo() {
 
         for(var i = 0; i < jugadores.length;i++){
             var jugador = jugadores[i];
-            var jugadorElement = document.createElement("li");
-            jugadorElement.textContent = `Nombre: ${jugador.nombre}, Dificultad: ${jugador.dificultad}, Dinero: ${jugador.dinero} K`;
+            var filaTitulos = document.createElement("tr");
+            var nombreJugador = document.createElement("td");
+            var dineroJugador = document.createElement("td");
+            nombreJugador.textContent = jugador.nombre;
+            dineroJugador.textContent = jugador.dinero + " k";
+            filaTitulos.appendChild(nombreJugador);
+            filaTitulos.appendChild(dineroJugador);
+
 
             if(jugador.dificultad.toLowerCase() == "facil"){
-                rankingFacil.appendChild(jugadorElement);
+                document.getElementById("facil").appendChild(filaTitulos);
             }else if(jugador.dificultad.toLowerCase() == "media"){
-                rankingMedio.appendChild(jugadorElement);
+                document.getElementById("media").appendChild(filaTitulos);
             }else if(jugador.dificultad.toLowerCase() == "dificil"){
-                rankingDificil.appendChild(jugadorElement);
+                document.getElementById("dificil").appendChild(filaTitulos);
             }else{
                 console.log("No esta metiendo al jugador en ningun tipo de ranking");
             }

@@ -255,7 +255,7 @@ function cambiarOpacity(elemento, direccion, delayAnimacion, diferencia) {
     elemento.animate([
         { opacity: 0 },
         { opacity: 1 }
-    ], { duration: 1000, fill: "both", delay: delayAnimacion, direction: direccion});
+    ], { duration: 500, fill: "both", delay: delayAnimacion, direction: direccion});
     if(delayAnimacion != 0){
         delayAnimacion += diferencia;
         delay = delayAnimacion;
@@ -363,7 +363,7 @@ function animarTrampilla(trampillas, direccion, delay){
         caja.animate([
             {backgroundColor: "#EEFFFE"},
             {backgroundColor: "rgb(104, 103, 102)"}
-        ], {duration: 1000, fill:"both", delay: delay, direction: direccion});
+        ], {duration: 500, fill:"both", delay: delay, direction: direccion});
         var hijos = caja.children;
         for(let j = 0; j < hijos.length; j++){
             cambiarOpacity(hijos[j], "reverse", delay, 2000);
