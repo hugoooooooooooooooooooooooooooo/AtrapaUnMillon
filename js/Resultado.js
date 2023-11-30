@@ -11,9 +11,12 @@ function mostrarTodo() {
     if(jugadores[jugadores.length -1].dinero > 0){
         document.getElementById("resultado").textContent = "¡¡Enhorabuena has ganado!!, te llevas " + jugadores[jugadores.length -1].dinero + " mil euros.";
         new Audio("../sonido/victoria.mp3").play();
+        document.body.style.backgroundImage = 'url("../img/confeti.png")';
+        document.body.style.backgroundSize = 'cover';
     }else{
         document.getElementById("resultado").textContent = "Vaya.., has perdido. ¡Intentalo de nuevo!";
         new Audio("../sonido/derrota.wav").play();
+        document.body.style.backgroundColor = "lightsteelblue";
     }
 
     //si hay jugadores muestra el ranking    
@@ -63,5 +66,11 @@ function mostrarTodo() {
     //boton para volver a jugar
     document.getElementById("volverJugar").addEventListener("click",()=>{
         window.location.href = "../html/Inicio.html";
+    });
+
+    //boton para borrar el localStorage
+    document.getElementById("resetStorage").addEventListener("click",()=>{
+        localStorage.clear();
+        alert("Se han borrado los datos");
     });
 };
