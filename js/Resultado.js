@@ -11,9 +11,12 @@ function mostrarTodo() {
     if(jugadores[jugadores.length -1].dinero > 0){
         document.getElementById("resultado").textContent = "¡¡Enhorabuena has ganado!!, te llevas " + jugadores[jugadores.length -1].dinero + " mil euros.";
         new Audio("../sonido/victoria.mp3").play();
+        document.body.style.backgroundImage = 'url("../img/confeti.png")';
+        document.body.style.backgroundSize = 'cover';
     }else{
         document.getElementById("resultado").textContent = "Vaya.., has perdido. ¡Intentalo de nuevo!";
         new Audio("../sonido/derrota.wav").play();
+        document.body.style.backgroundColor = "lightsteelblue";
     }
 
     //si hay jugadores muestra el ranking    
@@ -22,15 +25,21 @@ function mostrarTodo() {
 
         for(var i = 0; i < jugadores.length;i++){
             var jugador = jugadores[i];
-            var jugadorElement = document.createElement("li");
-            jugadorElement.textContent = `Nombre: ${jugador.nombre}, Dificultad: ${jugador.dificultad}, Dinero: ${jugador.dinero} K`;
+            var nombreJugador = document.createElement("tr");
+            var dineroJugador = document.createElement("tr");
+            nombreJugador.textContent = jugador.nombre;
+            dineroJugador.textContent = jugador.dinero + " k";
+
 
             if(jugador.dificultad.toLowerCase() == "facil"){
-                rankingFacil.appendChild(jugadorElement);
+                document.getElementById("facilNombre").appendChild(nombreJugador);
+                document.getElementById("facilDinero").appendChild(dineroJugador);
             }else if(jugador.dificultad.toLowerCase() == "media"){
-                rankingMedio.appendChild(jugadorElement);
+                document.getElementById("mediaNombre").appendChild(nombreJugador);
+                document.getElementById("mediaDinero").appendChild(dineroJugador);
             }else if(jugador.dificultad.toLowerCase() == "dificil"){
-                rankingDificil.appendChild(jugadorElement);
+                document.getElementById("dificilNombre").appendChild(nombreJugador);
+                document.getElementById("dificilDinero").appendChild(dineroJugador);
             }else{
                 console.log("No esta metiendo al jugador en ningun tipo de ranking");
             }
@@ -57,5 +66,11 @@ function mostrarTodo() {
     //boton para volver a jugar
     document.getElementById("volverJugar").addEventListener("click",()=>{
         window.location.href = "../html/Inicio.html";
+    });
+
+    //boton para borrar el localStorage
+    document.getElementById("resetStorage").addEventListener("click",()=>{
+        localStorage.clear();
+        alert("Se han borrado los datos");
     });
 };
