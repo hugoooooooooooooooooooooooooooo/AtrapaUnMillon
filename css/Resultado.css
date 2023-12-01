@@ -1,6 +1,5 @@
 
 body {
-    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background-color: #f7f7f7;
     margin: 0;
     padding: 0;
@@ -137,3 +136,13 @@ button:hover {
 .letra:nth-child(6) {animation-delay: 5s;}
 
 .letra:nth-child(7) {animation-delay: 6s;}
+
+#fondo{
+    visibility: hidden;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    z-index: -1;
+}

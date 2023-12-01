@@ -11,8 +11,7 @@ function mostrarTodo() {
     if(jugadores[jugadores.length -1].dinero > 0){
         document.getElementById("resultado").textContent = "¡¡Enhorabuena has ganado!!, te llevas " + jugadores[jugadores.length -1].dinero + " mil euros.";
         new Audio("../sonido/victoria.mp3").play();
-        document.body.style.backgroundImage = 'url("../img/confeti.png")';
-        document.body.style.backgroundSize = 'cover';
+        document.getElementById("fondo").style.visibility = "visible";
     }else{
         document.getElementById("resultado").textContent = "Vaya.., has perdido. ¡Intentalo de nuevo!";
         new Audio("../sonido/derrota.wav").play();

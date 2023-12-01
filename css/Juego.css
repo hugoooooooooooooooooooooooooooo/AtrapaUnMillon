@@ -1,8 +1,8 @@
+
 body{
     margin: 0px;
     padding: 0px;
     background-color: lightsteelblue;
-    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #contenido{
@@ -24,16 +24,23 @@ body{
     flex-wrap: wrap;
     margin: 1em;
     width: 150px;
-    height:200px;
+    height:170px;
     border-radius: 10%;
     border: 1px solid rgb(39, 45, 214);
     box-shadow: 0 0 30px rgba(30, 21, 206, 0.5);
 }
+
+.respuesta h4{
+    color: white;
+    font-weight: bold;
+}
+
 #info p{
     padding: 0.5em;
     margin: 0.5em;
 }
 #pregunta{
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     grid-area: pregunta;
     border: 1px solid black;
     margin-top: 10px;
@@ -78,6 +85,7 @@ body{
 
 #pregunta h3{
     text-align: center;
+    font-size: 1.5em;
 }
 
 #caja-contador{
@@ -210,9 +218,8 @@ img[class*="duplicado"]{
 #mesa{
     grid-area: mesa;
     width: 90%;
-    background-image: url("../img/mesa.png");
+    background: transparent;
     background-size: cover;
-    border: 1px solid black;
     padding: 1em;
     margin: auto;
     margin-bottom: 0px;
@@ -260,9 +267,9 @@ img{
 }
 
 #dinero{
-    width: 5%;
-    height: 80%;
-    margin-top: 0.5%;
+    width: 80px;
+    height: 80px;
+    margin-top: 5px;
     color: black;
     border-radius: 10%;
     background-color: #47B2EC;
@@ -274,4 +281,13 @@ img{
     45%  { box-shadow: .1em -.2em .5em #47B2EC, .15em 0 .4em #EE5151, -.1em -.25em .5em #E10606, .15em -.45em .5em #FF0000, -.1em -.5em .6em #EE5151, 0 -.8em .6em #E10606, .2em -1em .8em #FF0000; }
     70%  { box-shadow: -.1em 0 .3em #47B2EC, .1em -.1em .3em #EE5151, -.2em -.2em .6em #E10606, .2em -.3em .4em #FF0000, -.2em -.4em .7em #EE5151, .1em -.5em .7em #E10606, .1em -.7em .9em #FF0000; }
     to   { box-shadow: -.1em -.2em .6em #47B2EC, -.15em 0 .6em #EE5151, .1em -.25em .6em #E10606, -.15em -.45em .5em #FF0000, .1em -.5em .6em #EE5151, 0 -.8em .6em #E10606, -.2em -1em .8em #FF0000; }
+}
+
+#fondo{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    min-width: 100vh;
+    min-height: 100vh;
+    z-index: -1;
 }
