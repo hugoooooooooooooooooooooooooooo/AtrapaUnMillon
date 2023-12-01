@@ -246,7 +246,7 @@ img{
 
 #controles{
     display: flex;
-    margin: auto;
+    margin: 10px auto;
 }
 
 #controles img{

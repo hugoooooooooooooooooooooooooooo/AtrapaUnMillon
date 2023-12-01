@@ -161,9 +161,9 @@ function actualizarDinero(billete, operacion){
 
 function imprimirDinero(){
     if(presupuesto == 0){
-        document.getElementById("dinero").textContent = "Dinero: " + presupuesto;
+        document.getElementById("dinero").textContent =presupuesto + "€";
     }else{
-        document.getElementById("dinero").textContent = "Dinero: " + presupuesto + "k";
+        document.getElementById("dinero").textContent =presupuesto + ".000€";
     }
 }
 
