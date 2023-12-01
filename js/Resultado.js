@@ -25,21 +25,21 @@ function mostrarTodo() {
 
         for(var i = 0; i < jugadores.length;i++){
             var jugador = jugadores[i];
-            var filaTitulos = document.createElement("tr");
-            var nombreJugador = document.createElement("td");
-            var dineroJugador = document.createElement("td");
+            var nombreJugador = document.createElement("tr");
+            var dineroJugador = document.createElement("tr");
             nombreJugador.textContent = jugador.nombre;
             dineroJugador.textContent = jugador.dinero + " k";
-            filaTitulos.appendChild(nombreJugador);
-            filaTitulos.appendChild(dineroJugador);
 
 
             if(jugador.dificultad.toLowerCase() == "facil"){
-                document.getElementById("facil").appendChild(filaTitulos);
+                document.getElementById("facilNombre").appendChild(nombreJugador);
+                document.getElementById("facilDinero").appendChild(dineroJugador);
             }else if(jugador.dificultad.toLowerCase() == "media"){
-                document.getElementById("media").appendChild(filaTitulos);
+                document.getElementById("mediaNombre").appendChild(nombreJugador);
+                document.getElementById("mediaDinero").appendChild(dineroJugador);
             }else if(jugador.dificultad.toLowerCase() == "dificil"){
-                document.getElementById("dificil").appendChild(filaTitulos);
+                document.getElementById("dificilNombre").appendChild(nombreJugador);
+                document.getElementById("dificilDinero").appendChild(dineroJugador);
             }else{
                 console.log("No esta metiendo al jugador en ningun tipo de ranking");
             }

@@ -44,12 +44,26 @@ h1{
 .facil, .media, .dificil{
     display: flex;
     flex-direction: column;
-    text-align: left;
     margin: 10px;
     padding: 15px;
     border-radius: 8px;
     height: 90%;
     width: 90%;
+}
+
+.tablas{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+}
+
+#dificilNombre, #mediaNombre, #facilNombre{
+    text-align: left;
+}
+
+#dificilDinero, #mediaDinero, #facilDinero{
+    text-align: center;
 }
 
 button {
@@ -64,13 +78,19 @@ button {
     transition: background-color 0.8s ease;
 }
 
+.facil, .media, .dificil, h2{
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
 h2{
     display: flex;
-    justify-content: center;
     margin: 5px;
     color: black;
     font-family: garamond;
 }
+
 h2 > .letra{
     animation: move 4s infinite ease;
     transform: translate(0, -5px);
