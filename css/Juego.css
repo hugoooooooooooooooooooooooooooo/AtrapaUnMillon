@@ -2,6 +2,7 @@ body{
     margin: 0px;
     padding: 0px;
     background-color: lightsteelblue;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
 #contenido{
@@ -258,3 +259,19 @@ img{
     margin: 2px;
 }
 
+#dinero{
+    width: 5%;
+    height: 80%;
+    margin-top: 0.5%;
+    color: black;
+    border-radius: 10%;
+    background-color: #47B2EC;
+    animation: burn 1.5s linear infinite alternate;
+}
+  
+@keyframes burn {
+    from { box-shadow: -.1em 0 .3em #47B2EC, .1em -.1em .3em #EE5151, -.2em -.2em .4em #E10606, .2em -.3em .3em #FF0000, -.2em -.4em .4em #EE5151, .1em -.5em .7em #E10606, .1em -.7em .7em #FF0000; }
+    45%  { box-shadow: .1em -.2em .5em #47B2EC, .15em 0 .4em #EE5151, -.1em -.25em .5em #E10606, .15em -.45em .5em #FF0000, -.1em -.5em .6em #EE5151, 0 -.8em .6em #E10606, .2em -1em .8em #FF0000; }
+    70%  { box-shadow: -.1em 0 .3em #47B2EC, .1em -.1em .3em #EE5151, -.2em -.2em .6em #E10606, .2em -.3em .4em #FF0000, -.2em -.4em .7em #EE5151, .1em -.5em .7em #E10606, .1em -.7em .9em #FF0000; }
+    to   { box-shadow: -.1em -.2em .6em #47B2EC, -.15em 0 .6em #EE5151, .1em -.25em .6em #E10606, -.15em -.45em .5em #FF0000, .1em -.5em .6em #EE5151, 0 -.8em .6em #E10606, -.2em -1em .8em #FF0000; }
+}
