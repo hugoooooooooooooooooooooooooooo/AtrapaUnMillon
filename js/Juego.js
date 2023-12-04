@@ -81,6 +81,7 @@ function imprimirRondas(){
     }
 }
 
+//Funcion que cuando la llamas pone el id de rondaActual a la ronda en la que estemos
 function mostrarRonda(){
     var rondas = document.getElementById("rondas").children;
     for(i = 0; i < rondas.length; i++){
@@ -89,6 +90,7 @@ function mostrarRonda(){
         }
     }
 }
+
 //Permitimos el drag and drop y hacemos un duplicado del billete original para que se conserve, tambien se va actualizando el presupuesto
 function allowDrop(ev) {
     ev.preventDefault();
@@ -98,6 +100,7 @@ function drag(ev) {
     ev.dataTransfer.setData("text", ev.target.id);
 }
 
+//Para poder hacer un drag and drop de unas veces determinadas vamos haciendo duplicados y quitamos o ponemos distintas propiedades de éstos
 function drop(ev) {
     ev.preventDefault();
     var data = ev.dataTransfer.getData("text");
@@ -118,7 +121,7 @@ function drop(ev) {
     }
 }
 
-// Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina, tambie recibe un booleano por si quieres eliminar los duplicados
+// Esta funcion pasas por parametro el id del billete que quieras eliminar y lo elimina
 function eliminarBilletes(billete){
     var todosBilletesDuplicados;
     if(billete.className == "duplicadoAll"){
@@ -159,6 +162,7 @@ function actualizarDinero(billete, operacion){
     imprimirDinero();
 }
 
+//Muestra el dinero
 function imprimirDinero(){
     if(presupuesto == 0){
         document.getElementById("dinero").textContent =presupuesto + "€";
@@ -167,6 +171,7 @@ function imprimirDinero(){
     }
 }
 
+//funcion que elimina el ultimo billete puesto en alguna caja
 function eliminarBillete(e){
     var caja = e.target.parentElement;
     var ultimo = caja.lastElementChild;
@@ -176,15 +181,18 @@ function eliminarBillete(e){
     }
     resetearMesa();
 }
+
 // asignamos el valor del tiempo al contador (también nos servirá para actualizarlo)
 function crearContador(){
     document.getElementById("contador").textContent = tiempo;
 }
+
 // saltamos el tiempo
 function saltar(){
     tiempo = 0;
     crearContador();
 }
+
 //Esta función llama a imprimir
 function imprimirPreguntas(dificultad){
     imprimir(getArrayDificultad(ronda, dificultad));
@@ -237,6 +245,7 @@ function imprimir(arrayDificultad){
     cambiarOpacity(document.getElementById("pregunta-txt"), "normal", delay, 1000);
 }
 
+//Te genera un random, si ese numero ya ha salido te genera otro hasta que no haya salido, para no repetir preguntas
 function generarRandom(set, maximo){
     do{
         var random = Math.floor(Math.random() * maximo);
@@ -245,6 +254,7 @@ function generarRandom(set, maximo){
     return random;
 }
 
+//Funcion para meter elementos en un array
 function guardar(elemento, array){
     array.push(elemento);
 }
@@ -261,6 +271,7 @@ function cambiarOpacity(elemento, direccion, delayAnimacion, diferencia) {
     }
   }
 
+  //Funcion encargada de eliminiar cualquier elemento
 function eliminar(elemento){
     elemento.remove();
 }
@@ -297,6 +308,7 @@ function comprobarRespuesta(){
     update();
 }
 
+//Esta funcion va mirando las trampillas y cuenta los billetes que haya dentro, empieza en uno ya que dentro hay un elemento que no es un billete
 function contarDineroCorrecto(trampilla){
     var dineroCorrecto = trampilla.children;
     if(dineroCorrecto[1]){
@@ -308,6 +320,7 @@ function contarDineroCorrecto(trampilla){
     }
 }
 
+//Modificas el presupuesto
 function setPresupuesto(billete){
     if(billete.className == "duplicado10"){
         contadorPresupuesto += 10;
@@ -317,6 +330,7 @@ function setPresupuesto(billete){
     }
 }
 
+//LImpia el dinero de las trampillas
 function quitarDineroTrampilla(){
     var todosBilletes = document.querySelectorAll("img");
     for(var i = 0; i < todosBilletes.length;i++){
@@ -326,6 +340,7 @@ function quitarDineroTrampilla(){
     }
 }
 
+//Te pasa la trampilla correcta
 function getRespuestaCorrecta(){
     var correcta;
     for(i = 0; i < arrayRespuestas.length; i++){
@@ -338,6 +353,8 @@ function getRespuestaCorrecta(){
     }
     return correcta;
 }
+
+//Te pasa un array con las trampillas incorrectas
 function getRespuestasIncorrectas(){
     var salida = new Array();
     for(i = 0; i < arrayRespuestas.length; i++){
@@ -390,6 +407,7 @@ function update(){
     }, (delayTrampilla + 3000));
 }
 
+//Vuelve a mostrar los billetes en la mesa
 function resetearMesa(){
     document.getElementById("billete10").style.display = "inline";
     document.getElementById("billeteAll").style.display = "inline";
@@ -414,15 +432,18 @@ function resetAnimaciones(){
     }
 }
 
+//Reproducir un sonido y si lo quieres en loop(booleano)
 function reproducirSonido(audio, loop){
     audio.loop = loop;
     audio.play();
 }
 
+//Para un sonido que pases por parametro
 function pararSonido(audio){
     audio.pause();
 }
 
+//Si se acaba el juego, aunque se llame gameOver tambien es para ganar
 function gameOver(){
     var jugadoresGuardados = localStorage.getItem("jugadores");
     if (jugadoresGuardados) {
@@ -435,14 +456,17 @@ function gameOver(){
     window.location.href = "../html/Resultado.html";
 }
 
+//Baja volumen de la musica de fondo
 function volumenMenos(){
         musicaFondo.volume -= 0.2;
 }
 
+//Sube volumen de la musica de fondo
 function volumenMas(){
     musicaFondo.volume += 0.2;
 }
 
+//Aunque se llame playPause no para ni vuelve a reproducir la musica, sino que la mutea y la desmutea
 function playPause(){
     if(musicaFondo.muted){
         musicaFondo.muted = false;

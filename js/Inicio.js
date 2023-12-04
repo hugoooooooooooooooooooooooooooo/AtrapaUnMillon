@@ -27,6 +27,8 @@ window.addEventListener("keydown",(e)=>{
     }
 });
 
+
+//Funcion que hace visible un p con un mensaje de error si hay campos sin rellenar
 function mostrarError(){
     if(document.getElementById("error") == undefined){
         var p = document.createElement("p");
@@ -36,9 +38,11 @@ function mostrarError(){
     }
 }
 
-window.addEventListener("load", iniciar);
+window.addEventListener("load", iniciarAudio);
 
-function iniciar(){
+
+//Inicia el audio en cuanto se abre la pagina(Solo disponible en internet explorer)
+function iniciarAudio(){
     var random = Math.floor((Math.random() * 3)+ 1);
     var src = "../sonido/MusicaFondoInicio" + random + ".mp3";
     var audio = new Audio(src);

@@ -3,9 +3,6 @@ window.addEventListener("load", mostrarTodo);
 function mostrarTodo() {
     var jugadoresGuardados = localStorage.getItem("jugadores");
     var jugadores = JSON.parse(jugadoresGuardados);
-    var rankingFacil = document.getElementById("facil");
-    var rankingMedio = document.getElementById("media");
-    var rankingDificil = document.getElementById("dificil");
 
     //Da la enhorabuena si te has llevado algo de dinero, si no te dice que has perdido
     if(jugadores[jugadores.length -1].dinero > 0){
@@ -47,6 +44,7 @@ function mostrarTodo() {
         console.log("No hay jugadores");
     }
 
+    //Usamos el metodo de ordenacion de arrays por burbuja para ordenar el ranking por dinero ded mayor a menor
     function ordenarArray() {
         var n = jugadores.length;
         var aux;
