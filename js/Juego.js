@@ -185,7 +185,6 @@ function saltar(){
     tiempo = 0;
     crearContador();
 }
-//función general que inicia el juego dependiendo de su dificultad, que imprime las preguntas en función de la ronda en la que estemos.
 //Esta función llama a imprimir
 function imprimirPreguntas(dificultad){
     imprimir(getArrayDificultad(ronda, dificultad));
@@ -384,6 +383,7 @@ function update(){
             resetearMesa();
             jugar();
             quitarDineroTrampilla();
+            reproducirSonido(new Audio("../sonido/ronda.wav"), false);
         }else{
             gameOver();
         }

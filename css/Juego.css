@@ -24,7 +24,7 @@ body{
     flex-wrap: wrap;
     margin: 1em;
     width: 150px;
-    height:170px;
+    height:190px;
     border-radius: 10%;
     border: 1px solid rgb(39, 45, 214);
     box-shadow: 0 0 30px rgba(30, 21, 206, 0.5);
@@ -38,6 +38,7 @@ body{
 #info p{
     padding: 0.5em;
     margin: 0.5em;
+    
 }
 #pregunta{
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;

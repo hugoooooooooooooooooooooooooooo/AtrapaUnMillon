@@ -1,6 +1,11 @@
 var boton = document.getElementById('boton');
 
-boton.addEventListener("click", ()=>{
+//Funcion del boton para click en enviar
+boton.addEventListener("click", enviarFormulario);
+
+
+//Funcion que envia el formulario
+function enviarFormulario(){
     var nombre = document.getElementById('nombre').value;
     var dificultad = document.getElementById('dificultad').value;
 
@@ -12,7 +17,15 @@ boton.addEventListener("click", ()=>{
     }else{
         window.location.href = '../html/Juego.html';
     }
-})
+}
+
+//Funcion para que si se presiona el boton enter funcione como un click en el formulario
+window.addEventListener("keydown",(e)=>{
+    if(e.key == "Enter"){
+        e.preventDefault();
+        enviarFormulario();
+    }
+});
 
 function mostrarError(){
     if(document.getElementById("error") == undefined){
